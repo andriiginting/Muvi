@@ -1,0 +1,94 @@
+
+ext {
+
+    /**Test library version*/
+    mockitoCore = '2.25.0'
+    espressoVersion = '3.1.0'
+
+    kotlinVersion = '1.3.72'
+    coroutineVersion = "1.3.5"
+    androidCoreVersion = "1.1.0"
+    groovyAllVersion = "2.4.15"
+    daggerVersion = "2.24"
+    rxJavaVersion = "1.3.0"
+
+    okhttpVersion = '3.12.1'
+    retrofitVersion = "2.6.1"
+
+    /** Android support libs + architecture*/
+    supportLibraryVersion = '1.0.0'
+    lifecycleVersion = '2.2.0'
+    archCoreTestingVersion = '2.1.0'
+    liveDataVersion = '2.2.0-rc03'
+    constraintLayoutVersion = '2.0.0-beta4'
+    roomVersion = "2.2.5"
+
+    libraries = [
+            dagger                    : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler            : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerAndroid             : "com.google.dagger:dagger-android:${daggerVersion}",
+            daggerAndroidSupport      : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerAndroidCompiler     : "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            javaxAnnotation           : "org.glassfish:javax.annotation:10.0-b28",
+            rx2Java                   : "io.reactivex.rxjava2:rxjava:2.2.12",
+            rx2Android                : "io.reactivex.rxjava2:rxandroid:2.0.2",
+            rxAndroid                 : "io.reactivex:rxandroid:1.2.1",
+            rxKotlin2                 : "io.reactivex.rxjava2:rxkotlin:2.4.0",
+            gson                      : "com.google.code.gson:gson:2.8.5",
+            retrofit2                 : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofit2Gson             : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofit2Rx2              : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            okhttp3                   : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+            okhttp3Logging            : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+            glide                     : "com.github.bumptech.glide:glide:3.8.0",
+            glideOkHttp3              : "com.github.bumptech.glide:okhttp3-integration:1.5.0",
+            javaxInject               : "javax.inject:javax.inject:1",
+            multidex                  : "androidx.multidex:multidex:2.0.1",
+            lifecycleRuntime          : "androidx.lifecycle:lifecycle-runtime:${lifecycleVersion}",
+            lifecycleExtentions       : "androidx.lifecycle:lifecycle-extensions:${lifecycleVersion}",
+            lifecycleCompiler         : "androidx.lifecycle:lifecycle-compiler:${lifecycleVersion}",
+            liveDataKtx               : "androidx.lifecycle:lifecycle-livedata-ktx:${liveDataVersion}",
+            kotlin                    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            timber                    : "com.jakewharton.timber:timber:4.7.1",
+            roomRuntime               : "androidx.room:room-runtime:${roomVersion}",
+            roomCompiler              : "androidx.room:room-compiler:${roomVersion}",
+            roomRxJava                : "androidx.room:room-rxjava2:${roomVersion}",
+            kotlinCore                : "androidx.core:core-ktx:${androidCoreVersion}"
+    ]
+
+    supportDependencies = [
+            design          : "com.google.android.material:material:1.2.0-beta01",
+            recyclerView    : "androidx.recyclerview:recyclerview:1.0.0",
+            cardView        : "androidx.cardview:cardview:1.0.0",
+            appCompat       : "androidx.appcompat:appcompat:1.1.0-rc01",
+            constraintLayout: "androidx.constraintlayout:constraintlayout:${constraintLayoutVersion}",
+            support         : "androidx.legacy:legacy-support-v4:1.0.0",
+    ]
+
+    testSupportDependencies = [
+            core                  : "androidx.test:core:1.2.0",
+            runner                : "androidx.test:runner:1.1.1",
+            extRunner             : "androidx.test.ext:junit:1.1.0",
+            rules                 : "androidx.test:rules:1.1.1",
+            espressoCore          : "androidx.test.espresso:espresso-core:3.1.1",
+            espressoIntents       : "androidx.test.espresso:espresso-intents:3.1.1",
+            espressoContrib       : "androidx.test.espresso:espresso-contrib:3.1.1",
+            espressoIdlingResource: "androidx.test.espresso:espresso-idling-resource:3.1.1",
+    ]
+
+    testLibraries = [
+            coreTesting        : "androidx.arch.core:core-testing:${archCoreTestingVersion}",
+            junit              : "junit:junit:4.13",
+            mockitoCore        : "org.mockito:mockito-core:$mockitoCore",
+            mockitoAndroid     : "org.mockito:mockito-android:$mockitoCore",
+            junitRunner        : 'org.junit.platform:junit-platform-runner:1.4.0',
+            mockitoInline      : "org.mockito:mockito-inline:2.25.0",
+            mockitoKotlin      : "com.nhaarman:mockito-kotlin:1.6.0",
+            mockitoKotlin2     : "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0",
+            kotlinTest         : 'io.kotlintest:kotlintest-runner-junit5:3.3.1',
+            kotlinReflect      : "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
+            kotlinJunit        : "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion",
+            coroutinesTest     : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion",
+            roomTest           : "androidx.room:room-testing:$roomVersion",
+    ]
+}
