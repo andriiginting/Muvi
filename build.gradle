@@ -14,7 +14,7 @@ buildscript {
     }
 }
 
-apply from: "build-systems/library-version.gradle"
+apply from: 'build-systems/library-version.gradle'
 
 allprojects {
     repositories {

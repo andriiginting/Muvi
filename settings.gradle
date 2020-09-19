@@ -1,2 +1,5 @@
-include ':app'
+include ':core-network'
+project(':core-network').projectDir = new File("./core/network/core-network")
+
+include ':app', ':home'
 rootProject.name = "Muvi"
