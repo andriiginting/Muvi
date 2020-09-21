@@ -18,10 +18,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "API_KEY", movieApiKey)
+            buildConfigField("String", "HOST_BASE_URL", movieApiURL)
+            buildConfigField("String", "IMAGE_BASE_URL", movieImageUrl)
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    android {
+        compileOptions.incremental = false
     }
 
     sourceSets {

@@ -5,7 +5,6 @@ dependencies {
 
     implementation libraries.kotlinCore
     implementation libraries.dagger
-    implementation libraries.daggerCompiler
     implementation libraries.javaxInject
     implementation libraries.javaxAnnotation
     implementation libraries.rx2Java
@@ -16,5 +15,7 @@ dependencies {
     implementation libraries.retrofit2Rx2
     implementation libraries.okhttp3
     implementation libraries.okhttp3Logging
+
+    kapt libraries.daggerCompiler
 
 }

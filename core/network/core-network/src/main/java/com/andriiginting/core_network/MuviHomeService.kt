@@ -10,7 +10,6 @@ import retrofit2.http.Query
 interface MuviHomeService {
     @GET("movie/popular")
     fun getPopularMovies(@Query("api_key") apiKey: String): Single<MovieResponse>
-
 }
 
 @Parcelize

@@ -4,5 +4,8 @@ project(':common-di').projectDir = new File("./core/common/common-di")
 include ':core-network'
 project(':core-network').projectDir = new File("./core/network/core-network")
 
-include ':app', ':home'
+include ':home'
+project(':home').projectDir = new File("./home")
+
+include ':app'
 rootProject.name = "Muvi"

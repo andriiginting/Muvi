@@ -1,17 +1,16 @@
 package com.andriiginting.core_network
 
-import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -23,18 +22,20 @@ class MuviNetworkModule(private val url: String) {
 
     @Provides
     @Singleton
-    fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    @Named("MuviHomeService")
+    fun providesRetrofit(@Named("MuviHttpCliet") okHttpClient: OkHttpClient): Retrofit {
         return retrofitFactory(okHttpClient, url)
     }
 
     @Provides
     @Singleton
-    fun provideHomeServices(retrofit: Retrofit): MuviHomeService {
+    fun provideHomeServices(@Named("MuviHomeService") retrofit: Retrofit): MuviHomeService {
         return retrofit.create(MuviHomeService::class.java)
     }
 
     @Provides
     @Singleton
+    @Named("MuviHttpCliet")
     fun provideHttpClient(): OkHttpClient = okHttpClientFactory()
 
     private fun retrofitFactory(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
