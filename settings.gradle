@@ -1,3 +1,9 @@
+include ':base-ui'
+project(':base-ui').projectDir = new File("./core/common/base-ui")
+
+include ':uttils'
+project(':uttils').projectDir = new File("./utils/uttils")
+
 include ':common-di'
 project(':common-di').projectDir = new File("./core/common/common-di")
 

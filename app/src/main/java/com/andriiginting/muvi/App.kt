@@ -1,12 +1,12 @@
 package com.andriiginting.muvi
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.andriiginting.common_di.DaggerMuviAppComponent
 import com.andriiginting.common_di.MuviAppComponent
 import com.andriiginting.common_di.MuviDepsProvider
 import com.andriiginting.core_network.MuviNetworkModule
 
-class App : Application(), MuviDepsProvider {
+open class App : MultiDexApplication(), MuviDepsProvider {
 
     open lateinit var appComponent: MuviAppComponent
         protected set

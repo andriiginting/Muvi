@@ -5,6 +5,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation project(":common-di")
     implementation project(":core-network")
+    implementation project(":home")
 
     implementation libraries.dagger
     kapt libraries.daggerCompiler
