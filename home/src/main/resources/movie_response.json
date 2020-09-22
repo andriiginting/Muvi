@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "poster_path": "/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg",
+      "overview": "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
+      "release_date": "2016-08-03",
+      "id": 297761,
+      "original_title": "Suicide Squad",
+      "title": "Suicide Squad",
+      "backdrop_path": "/ndlQ2Cuc3cjTL7lTynw6I4boP4S.jpg"
+    },
+    {
+      "poster_path": "/lFSSLTlFozwpaGlO31OoUeirBgQ.jpg",
+      "overview": "The most dangerous former operative of the CIA is drawn out of hiding to uncover hidden truths about his past.",
+      "release_date": "2016-07-27",
+      "id": 324668,
+      "original_title": "Jason Bourne",
+      "title": "Jason Bourne",
+      "backdrop_path": "/AoT2YrJUJlg5vKE3iMOLvHlTd3m.jpg"
+    }
+  ]
+}

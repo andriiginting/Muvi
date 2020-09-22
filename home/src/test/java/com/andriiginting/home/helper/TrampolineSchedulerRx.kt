@@ -1,4 +1,4 @@
-package com.andriiginting.home
+package com.andriiginting.home.helper
 
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
