@@ -14,7 +14,7 @@ interface MuviHomeService {
 
 @Parcelize
 data class MovieResponse(
-    @SerializedName("results") var resultsIntent: MutableList<MovieItem> = mutableListOf()
+    @SerializedName("results") var resultsIntent: List<MovieItem> = mutableListOf()
 ) : BaseResponse(), Parcelable
 
 @Parcelize

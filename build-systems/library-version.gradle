@@ -15,6 +15,8 @@ ext {
     okhttpVersion = '3.12.1'
     retrofitVersion = "2.6.1"
 
+    lottieVersion = '3.4.2'
+
     /** Android support libs + architecture*/
     supportLibraryVersion = '1.0.0'
     lifecycleVersion = '2.2.0'
@@ -53,7 +55,8 @@ ext {
             roomRuntime               : "androidx.room:room-runtime:${roomVersion}",
             roomCompiler              : "androidx.room:room-compiler:${roomVersion}",
             roomRxJava                : "androidx.room:room-rxjava2:${roomVersion}",
-            kotlinCore                : "androidx.core:core-ktx:${androidCoreVersion}"
+            kotlinCore                : "androidx.core:core-ktx:${androidCoreVersion}",
+            lottie                    : "com.airbnb.android:lottie:${lottieVersion}"
     ]
 
     supportDependencies = [

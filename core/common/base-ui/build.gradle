@@ -2,8 +2,16 @@ apply from: "$rootDir/build-systems/apps-library.gradle"
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":common-di")
+
     implementation supportDependencies.appCompat
     implementation supportDependencies.design
     implementation supportDependencies.support
     implementation supportDependencies.constraintLayout
+    implementation supportDependencies.recyclerView
+
+    implementation libraries.dagger
+    implementation libraries.rx2Java
+    implementation libraries.lifecycleExtentions
+    kapt libraries.daggerCompiler
 }

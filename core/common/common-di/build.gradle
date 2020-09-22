@@ -7,5 +7,6 @@ dependencies {
 
     implementation libraries.dagger
     implementation libraries.retrofit2
+    implementation libraries.lifecycleExtentions
     kapt libraries.daggerCompiler
 }

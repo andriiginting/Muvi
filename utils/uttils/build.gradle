@@ -4,4 +4,6 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation libraries.rx2Java
     implementation libraries.rx2Android
+    implementation libraries.lottie
+    implementation supportDependencies.recyclerView
 }

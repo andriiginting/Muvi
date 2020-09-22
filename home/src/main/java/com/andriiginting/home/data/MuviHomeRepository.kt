@@ -14,5 +14,5 @@ class MuviHomeRepositoryImpl @Inject constructor(
     private val service: MuviHomeService
 ) : MuviHomeRepository {
 
-    override fun getPopularMovie(): Single<MovieResponse> = service.getPopularMovies(BuildConfig.HOST_BASE_URL)
+    override fun getPopularMovie(): Single<MovieResponse> = service.getPopularMovies(BuildConfig.API_KEY)
 }

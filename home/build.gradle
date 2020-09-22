@@ -1,34 +1,11 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
-android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
-
-    defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+apply from: "$rootDir/build-systems/apps-library.gradle"
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
     implementation project(":core-network")
+    implementation project(":common-di")
+    implementation project(":base-ui")
+    implementation project(":uttils")
 
     implementation supportDependencies.appCompat
     implementation supportDependencies.design
@@ -38,7 +15,9 @@ dependencies {
 
     implementation libraries.kotlinCore
     implementation libraries.dagger
-    implementation libraries.daggerCompiler
+    kapt libraries.daggerCompiler
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation libraries.javaxInject
     implementation libraries.javaxAnnotation
     implementation libraries.rx2Java
@@ -49,6 +28,8 @@ dependencies {
     implementation libraries.retrofit2Rx2
     implementation libraries.okhttp3
     implementation libraries.okhttp3Logging
+    implementation libraries.glide
+    implementation libraries.lottie
 
     testImplementation testLibraries.junit
     testImplementation testLibraries.mockitoCore
