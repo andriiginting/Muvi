@@ -1,0 +1,7 @@
+apply from: "$rootDir/build-systems/apps-library.gradle"
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation libraries.rx2Java
+    implementation libraries.rx2Android
+}
