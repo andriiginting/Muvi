@@ -19,5 +19,6 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToHome() {
         Intent(this, HomeActivity::class.java)
             .also(::startActivity)
+        finish()
     }
 }
