@@ -52,6 +52,7 @@ class MuviNetworkModule(private val url: String) {
     private fun okHttpClientFactory(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(defaultHTTPClient())
+            .addInterceptor(serviceHTTPClient())
             .addInterceptor(httpLoggingInterceptor())
             .readTimeout(25, TimeUnit.SECONDS)
             .connectTimeout(25, TimeUnit.SECONDS)
@@ -66,6 +67,22 @@ class MuviNetworkModule(private val url: String) {
                 .addHeader("Content-Type", "application/json")
                 .build()
             return@Interceptor chain.proceed(request)
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun serviceHTTPClient(): Interceptor {
+        return Interceptor { chain ->
+            val original = chain.request()
+            val requestUrl = original
+                .url()
+                .newBuilder()
+                .addQueryParameter("api_key", BuildConfig.API_KEY)
+                .build()
+
+            val requestBuilder = original.newBuilder().url(requestUrl)
+                .build()
+            return@Interceptor chain.proceed(requestBuilder)
         }
     }
 

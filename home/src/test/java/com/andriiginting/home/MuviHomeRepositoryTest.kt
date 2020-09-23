@@ -28,11 +28,10 @@ class MuviHomeRepositoryTest {
 
     @Test
     fun `when get popular movie, should return list of movie from service`() {
-        val keys = "keys"
-        whenever(service.getPopularMovies(keys))
+        whenever(service.getPopularMovies())
             .thenReturn(Single.just(getDummyResponse()))
 
-        val test = service.getPopularMovies(keys).test()
+        val test = service.getPopularMovies().test()
         repository.getPopularMovie()
 
         test.apply {
@@ -40,7 +39,7 @@ class MuviHomeRepositoryTest {
             assertNoErrors()
         }
 
-        verify(service, atLeastOnce()).getPopularMovies(keys)
+        verify(service, atLeastOnce()).getPopularMovies()
     }
 
     @After

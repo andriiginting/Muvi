@@ -1,6 +1,5 @@
 package com.andriiginting.home.data
 
-import com.andriiginting.core_network.BuildConfig
 import com.andriiginting.core_network.MovieResponse
 import com.andriiginting.core_network.MuviHomeService
 import io.reactivex.Single
@@ -14,5 +13,5 @@ class MuviHomeRepositoryImpl @Inject constructor(
     private val service: MuviHomeService
 ) : MuviHomeRepository {
 
-    override fun getPopularMovie(): Single<MovieResponse> = service.getPopularMovies(BuildConfig.API_KEY)
+    override fun getPopularMovie(): Single<MovieResponse> = service.getPopularMovies()
 }
