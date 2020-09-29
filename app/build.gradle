@@ -1,8 +1,58 @@
-apply from: "$rootDir/build-systems/apps-library.gradle"
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        applicationId "com.andriiginting.muvi"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "API_KEY", movieApiKey)
+            buildConfigField("String", "HOST_BASE_URL", movieApiURL)
+            buildConfigField("String", "IMAGE_BASE_URL", movieImageUrl)
+            applicationIdSuffix ".debug"
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android {
+        compileOptions.incremental = false
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+    dynamicFeatures = [':favorite']
+}
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation libraries.multidex
     implementation project(":common-di")
     implementation project(":core-network")
     implementation project(":home")

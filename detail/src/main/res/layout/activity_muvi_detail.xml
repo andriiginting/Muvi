@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivPosterBackdrop"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background=""
+        android:contentDescription="@string/image_backdrop_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBackNavigation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_circle_dark_grey"
+        android:contentDescription="@string/image_backdrop_detail"
+        android:padding="8dp"
+        android:src="@drawable/ic_back_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivTheaterFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/text_favorite_icon"
+        android:focusable="true"
+        android:src="@drawable/favorite_icon_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMovieTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:padding="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivPosterBackdrop"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/tvMovieDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMovieTitle"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/tvMore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/more_like_this"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMovieDescription" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSimilarMovie"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMore" />
+
+    <ProgressBar
+        android:id="@+id/pbDetailScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvSimilarMovie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rvSimilarMovie" />
+
+    <include
+        android:id="@+id/layoutError"
+        layout="@layout/layout_error"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rvSimilarMovie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rvSimilarMovie" />
+</androidx.constraintlayout.widget.ConstraintLayout>

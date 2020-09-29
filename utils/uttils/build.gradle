@@ -9,5 +9,6 @@ dependencies {
     implementation libraries.rx2Java
     implementation libraries.rx2Android
     implementation libraries.lottie
+    implementation libraries.glide
     implementation supportDependencies.recyclerView
 }

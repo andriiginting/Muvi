@@ -1,0 +1,5 @@
+<resources>
+    <string name="image_backdrop_detail">Backdrop Image</string>
+    <string name="text_favorite_icon">Favorite Icon</string>
+    <string name="more_like_this">More Like This</string>
+</resources>

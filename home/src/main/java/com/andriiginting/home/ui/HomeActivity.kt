@@ -7,6 +7,7 @@ import com.andriiginting.base_ui.MuviBaseAdapter
 import com.andriiginting.core_network.MovieItem
 import com.andriiginting.home.R
 import com.andriiginting.home.di.MuviHomeInjector
+import com.andriiginting.navigation.DetailNavigator
 import com.andriiginting.uttils.loadAnimation
 import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible
@@ -48,6 +49,10 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
             HomeViewHolder.inflate(parent)
         }, { viewHolder, _, item ->
             viewHolder.bind(item.posterPath)
+            viewHolder.setPosterAction {
+                DetailNavigator.getDetailPageIntent(this, item)
+                    .also(::startActivity)
+            }
         })
     }
 

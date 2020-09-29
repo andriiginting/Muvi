@@ -1,3 +1,4 @@
 <resources>
-  <string name="app_name">Muvi</string>
+    <string name="app_name">Muvi</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

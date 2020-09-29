@@ -1,0 +1,45 @@
+apply from: "$rootDir/build-systems/apps-library.gradle"
+apply plugin: 'kotlin-android'
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":core-network")
+    implementation project(":common-di")
+    implementation project(":common-widget")
+    implementation project(":base-ui")
+    implementation project(":navigation")
+    implementation project(":uttils")
+
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.design
+    implementation supportDependencies.recyclerView
+    implementation supportDependencies.support
+    implementation supportDependencies.constraintLayout
+
+    implementation libraries.kotlinCore
+    implementation libraries.dagger
+    kapt libraries.daggerCompiler
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation libraries.javaxInject
+    implementation libraries.javaxAnnotation
+    implementation libraries.rx2Java
+    implementation libraries.rx2Android
+    implementation libraries.gson
+    implementation libraries.retrofit2
+    implementation libraries.retrofit2Gson
+    implementation libraries.retrofit2Rx2
+    implementation libraries.okhttp3
+    implementation libraries.glide
+    implementation libraries.lottie
+
+    testImplementation testLibraries.junit
+    testImplementation testLibraries.mockitoCore
+    testImplementation testLibraries.mockitoKotlin
+    testImplementation testLibraries.mockitoInline
+
+    androidTestImplementation testLibraries.mockitoAndroid
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}

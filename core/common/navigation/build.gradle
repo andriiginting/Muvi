@@ -1,0 +1,11 @@
+apply from: "$rootDir/build-systems/apps-library.gradle"
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation supportDependencies.appCompat
+    implementation project(":core-network")
+    implementation libraries.kotlinCore
+    implementation libraries.navigationUi
+    implementation libraries.navigationDynamic
+    implementation libraries.navigationFragment
+}

@@ -37,6 +37,12 @@ class MuviNetworkModule(private val url: String) {
 
     @Provides
     @Singleton
+    fun provideDetailServices(@Named("MuviHomeService") retrofit: Retrofit): MuviDetailService {
+        return retrofit.create(MuviDetailService::class.java)
+    }
+
+    @Provides
+    @Singleton
     @Named("MuviHttpCliet")
     fun provideHttpClient(): OkHttpClient = okHttpClientFactory()
 

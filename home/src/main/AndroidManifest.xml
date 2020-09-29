@@ -4,6 +4,12 @@
 
     <application>
         <activity android:name=".ui.HomeActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="MUVI_HOME_IMPLICIT_INTENT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

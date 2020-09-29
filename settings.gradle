@@ -1,3 +1,6 @@
+include ':navigation'
+project(':navigation').projectDir = new File("./core/common/navigation")
+
 include ':common-widget'
 project(':common-widget').projectDir = new File("./core/common/common-widget")
 

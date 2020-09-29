@@ -20,6 +20,7 @@ ext {
     /** Android support libs + architecture*/
     supportLibraryVersion = '1.0.0'
     lifecycleVersion = '2.2.0'
+    navigationVersion = '2.3.0'
     archCoreTestingVersion = '2.1.0'
     liveDataVersion = '2.2.0-rc03'
     constraintLayoutVersion = '2.0.0-beta4'
@@ -49,6 +50,9 @@ ext {
             lifecycleRuntime          : "androidx.lifecycle:lifecycle-runtime:${lifecycleVersion}",
             lifecycleExtentions       : "androidx.lifecycle:lifecycle-extensions:${lifecycleVersion}",
             lifecycleCompiler         : "androidx.lifecycle:lifecycle-compiler:${lifecycleVersion}",
+            navigationUi              : "androidx.navigation:navigation-ui-ktx:${navigationVersion}",
+            navigationDynamic         : "androidx.navigation:navigation-dynamic-features-fragment:${navigationVersion}",
+            navigationFragment        : "androidx.navigation:navigation-fragment-ktx:${navigationVersion}",
             liveDataKtx               : "androidx.lifecycle:lifecycle-livedata-ktx:${liveDataVersion}",
             kotlin                    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
             timber                    : "com.jakewharton.timber:timber:4.7.1",
