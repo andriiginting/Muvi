@@ -1,4 +1,4 @@
-package com.andriiginting.home.helper
+package com.andriiginting.uttils.testhelper
 
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins

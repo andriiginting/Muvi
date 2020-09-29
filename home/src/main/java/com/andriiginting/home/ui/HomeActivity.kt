@@ -12,10 +12,10 @@ import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible
 import com.andriiginting.uttils.setGridView
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.item_error_component.*
 import kotlinx.android.synthetic.main.item_loading_component.*
 
 private const val HOME_COLUMN_SIZE = 2
+
 class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
 
     private lateinit var homeAdapter: MuviBaseAdapter<MovieItem, HomeViewHolder>
@@ -53,7 +53,7 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
 
     private fun setupObserver() {
         viewModel.state.observe(this, Observer { state ->
-            when(state) {
+            when (state) {
                 is HomeViewState.ShowLoading -> {
                     ivLoadingIndicator.apply {
                         makeVisible()
@@ -64,14 +64,11 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
                     ivLoadingIndicator.makeGone()
                 }
                 is HomeViewState.GetMovieDataError -> {
-                    ivErrorScreen.apply {
-                        makeVisible()
-                        loadAnimation("alien_no_network.json")
-                    }
-                    tvErrorDescription.makeVisible()
+                    layoutError.showErrorScreen()
                 }
                 is HomeViewState.GetMovieData -> {
                     homeAdapter.safeAddAll(state.data.resultsIntent)
+                    layoutError.hideErrorScreen()
                 }
             }
         })

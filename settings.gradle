@@ -1,3 +1,12 @@
+include ':common-widget'
+project(':common-widget').projectDir = new File("./core/common/common-widget")
+
+include ':detail'
+project(':detail').projectDir = new File("./detail")
+
+include ':favorite'
+project(':favorite').projectDir = new File("./favorite")
+
 include ':base-ui'
 project(':base-ui').projectDir = new File("./core/common/base-ui")
 

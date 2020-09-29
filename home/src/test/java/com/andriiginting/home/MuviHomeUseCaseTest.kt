@@ -4,9 +4,9 @@ import com.andriiginting.core_network.MovieResponse
 import com.andriiginting.home.data.MuviHomeRepository
 import com.andriiginting.home.domain.MuviHomeUseCase
 import com.andriiginting.home.domain.MuviHomeUseCaseImpl
-import com.andriiginting.home.helper.TrampolineSchedulerRX
-import com.andriiginting.home.helper.getDummyResponse
-import com.andriiginting.home.helper.load
+import com.andriiginting.uttils.testhelper.TrampolineSchedulerRX
+import com.andriiginting.uttils.testhelper.getDummyResponse
+import com.andriiginting.uttils.testhelper.load
 import com.nhaarman.mockito_kotlin.atLeastOnce
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify

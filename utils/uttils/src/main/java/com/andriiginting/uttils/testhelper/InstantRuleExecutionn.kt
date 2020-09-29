@@ -1,4 +1,4 @@
-package com.andriiginting.home.helper
+package com.andriiginting.uttils.testhelper
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor

@@ -1,4 +1,4 @@
-package com.andriiginting.home.helper
+package com.andriiginting.uttils.testhelper
 
 import com.andriiginting.core_network.MovieItem
 import com.andriiginting.core_network.MovieResponse

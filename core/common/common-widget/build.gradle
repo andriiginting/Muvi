@@ -1,0 +1,14 @@
+apply from: "$rootDir/build-systems/apps-library.gradle"
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":uttils")
+
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.constraintLayout
+    implementation supportDependencies.design
+    implementation libraries.kotlinCore
+    implementation libraries.javaxAnnotation
+    implementation libraries.glide
+    implementation libraries.lottie
+}

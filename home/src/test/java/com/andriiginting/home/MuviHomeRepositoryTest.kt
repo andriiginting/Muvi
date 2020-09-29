@@ -3,8 +3,8 @@ package com.andriiginting.home
 import com.andriiginting.core_network.MuviHomeService
 import com.andriiginting.home.data.MuviHomeRepository
 import com.andriiginting.home.data.MuviHomeRepositoryImpl
-import com.andriiginting.home.helper.TrampolineSchedulerRX
-import com.andriiginting.home.helper.getDummyResponse
+import com.andriiginting.uttils.testhelper.TrampolineSchedulerRX
+import com.andriiginting.uttils.testhelper.getDummyResponse
 import com.nhaarman.mockito_kotlin.atLeastOnce
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify

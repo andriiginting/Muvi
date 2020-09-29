@@ -10,11 +10,7 @@ import javax.inject.Inject
 
 class MuviHomeViewModel @Inject constructor(
     private val useCase: MuviHomeUseCase
-) : MuviBaseViewModel() {
-
-    private val _state: MutableLiveData<HomeViewState> = MutableLiveData()
-    val state: LiveData<HomeViewState>
-        get() = _state
+) : MuviBaseViewModel<HomeViewState>() {
 
     fun getMovieData() {
         useCase.getAllMovies()
