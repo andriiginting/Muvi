@@ -32,6 +32,8 @@ dependencies {
     implementation libraries.okhttp3
     implementation libraries.glide
     implementation libraries.lottie
+    implementation libraries.deeplinkDispatch
+    kapt libraries.deeplinkDispatchProcessor
 
     testImplementation testLibraries.junit
     testImplementation testLibraries.mockitoCore

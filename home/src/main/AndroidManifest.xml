@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.andriiginting.home">
+    package="com.andriiginting.muvi.home">
 
     <application>
         <activity android:name=".ui.HomeActivity"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="MUVI_HOME_IMPLICIT_INTENT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
     </application>
 </manifest>

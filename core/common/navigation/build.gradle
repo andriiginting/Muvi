@@ -5,7 +5,5 @@ dependencies {
     implementation supportDependencies.appCompat
     implementation project(":core-network")
     implementation libraries.kotlinCore
-    implementation libraries.navigationUi
-    implementation libraries.navigationDynamic
-    implementation libraries.navigationFragment
+    kapt libraries.deeplinkDispatchProcessor
 }

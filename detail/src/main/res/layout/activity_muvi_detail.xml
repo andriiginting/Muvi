@@ -10,11 +10,12 @@
         android:id="@+id/ivPosterBackdrop"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background=""
+        android:background="@color/cardview_dark_background"
         android:contentDescription="@string/image_backdrop_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="PrivateResource" />
 
     <ImageView
         android:id="@+id/ivBackNavigation"
