@@ -16,10 +16,8 @@ class MuviHomeViewModel @Inject constructor(
             .doAfterTerminate { _state.value = HomeViewState.HideLoading }
             .subscribe({ data ->
                 _state.postValue(HomeViewState.GetMovieData(data))
-                Log.d("muvi-fetch", data.resultsIntent[0].backdropPath)
             }, { error ->
                 _state.value = HomeViewState.GetMovieDataError(error)
-                Log.d("muvi-fetch", "${error.message}")
             }).let(addDisposable::add)
     }
 }

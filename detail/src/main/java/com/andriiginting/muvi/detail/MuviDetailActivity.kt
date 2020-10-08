@@ -1,9 +1,6 @@
 package com.andriiginting.muvi.detail
 
-import android.graphics.Rect
-import android.os.Build
 import android.os.Bundle
-import androidx.core.view.marginTop
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.airbnb.deeplinkdispatch.DeepLink

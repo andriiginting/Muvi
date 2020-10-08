@@ -1,6 +1,5 @@
 package com.andriiginting.muvi.detail.presentation
 
-import android.util.Log
 import com.andriiginting.base_ui.MuviBaseViewModel
 import com.andriiginting.core_network.DetailsMovieData
 import com.andriiginting.core_network.MovieItem
@@ -12,15 +11,12 @@ class MuviDetailViewModel @Inject constructor(
     private val useCase: MuviDetailUseCase
 ) : MuviBaseViewModel<MovieDetailViewState>() {
 
-
     fun getDetailMovie(movieId: String) {
         useCase.getDetailMovies(movieId)
             .doOnSubscribe { _state.postValue(MovieDetailViewState.ShowLoading) }
             .doAfterTerminate { _state.postValue(MovieDetailViewState.HideLoading) }
             .compose(singleIo())
             .subscribe({ data ->
-                Log.d("details","movieItem -> ${data.movie}")
-                Log.d("details", "list movieItem -> ${data.similarMovies}")
                 _state.value = MovieDetailViewState.GetMovieData(data.movie)
                 handleSimilarMovieData(data)
             }, { error ->

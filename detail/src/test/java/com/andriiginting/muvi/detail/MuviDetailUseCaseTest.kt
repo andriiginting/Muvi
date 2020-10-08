@@ -1,5 +1,6 @@
 package com.andriiginting.muvi.detail
 
+import com.andriiginting.core_network.DetailsMovieData
 import com.andriiginting.muvi.detail.data.MuviDetailRepository
 import com.andriiginting.muvi.detail.domain.MuviDetailUseCase
 import com.andriiginting.muvi.detail.domain.MuviDetailUseCaseImpl
@@ -25,11 +26,13 @@ class MuviDetailUseCaseTest {
 
     @Test
     fun `should return similar movie response when call detail repository`() {
-        val id = "123"
+        val id = "297761"
         whenever(repository.getSimilarMovie(id))
             .thenReturn(Single.just(getDummyResponse()))
+        whenever(repository.getDetailMovie(id))
+            .thenReturn(Single.just(getMovieDummyResponse()))
 
-        useCase.getSimilarMovie(id)
+        useCase.getDetailMovies(id)
 
         repository.getSimilarMovie(id).test().apply {
             assertComplete()
@@ -37,7 +40,19 @@ class MuviDetailUseCaseTest {
             assertTerminated()
         }
 
+        repository.getDetailMovie(id).test().apply {
+            assertComplete()
+            assertNoErrors()
+            assertTerminated()
+        }
+
+        useCase.getDetailMovies(id).test()
+            .assertValue {
+                it == DetailsMovieData(getSimilarMovieResponse(), getMovieDummyResponse())
+            }
+
         verify(repository, atLeastOnce()).getSimilarMovie(id)
+        verify(repository, atLeastOnce()).getDetailMovie(id)
     }
 
     @After
