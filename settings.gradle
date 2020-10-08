@@ -1,3 +1,6 @@
+include ':common-database'
+project(':common-database').projectDir = new File("./core/common/common-database")
+
 include ':navigation'
 project(':navigation').projectDir = new File("./core/common/navigation")
 
