@@ -26,3 +26,9 @@ data class MovieItem(
     @SerializedName("backdrop_path") var backdropPath: String = "",
     @SerializedName("release_date") var releaseDate: String = ""
 ) : Parcelable
+
+@Parcelize
+data class DetailsMovieData(
+    val similarMovies: List<MovieItem> = emptyList(),
+    val movie: MovieItem
+):Parcelable

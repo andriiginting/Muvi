@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_description">Something When Wrong Here</string>
+    <string name="empty_description">We don not have similar movie yet</string>
 </resources>

@@ -51,7 +51,7 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
             viewHolder.bind(item.posterPath)
             viewHolder.setPosterAction {
                 DetailNavigator
-                    .getDetailPageIntent(item.movieId)
+                    .getDetailPageIntent(item.id)
                     .also(::startActivity)
             }
         })

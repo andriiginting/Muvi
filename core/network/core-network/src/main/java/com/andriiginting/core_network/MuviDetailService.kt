@@ -9,4 +9,7 @@ interface MuviDetailService {
     fun getSimilarMovie(
         @Path("movie_id") movieId: String
     ): Single<MovieResponse>
+
+    @GET("movie/{movie_id}")
+    fun getDetailMovies(@Path("movie_id") movieId: String): Single<MovieItem>
 }
