@@ -5,6 +5,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(":core-network")
     implementation project(":common-di")
+    implementation project(":common-database")
     implementation project(":common-widget")
     implementation project(":base-ui")
     implementation project(":navigation")
@@ -18,6 +19,7 @@ dependencies {
 
     implementation libraries.kotlinCore
     implementation libraries.dagger
+    implementation libraries.timber
     kapt libraries.daggerCompiler
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'

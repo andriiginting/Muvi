@@ -1,6 +1,7 @@
 package com.andriiginting.muvi.detail
 
 import android.os.Bundle
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.airbnb.deeplinkdispatch.DeepLink
@@ -21,6 +22,8 @@ import kotlinx.android.synthetic.main.activity_muvi_detail.*
 class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
 
     private var movieId: String = ""
+    private var movieItem: MovieItem? = null
+    private var isFavorite: Boolean = false
 
     override fun getLayoutId(): Int = R.layout.activity_muvi_detail
 
@@ -33,6 +36,7 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
         ivBackNavigation.setOnClickListener {
             onBackPressed()
         }
+        viewModel.checkFavoriteMovie(movieId)
         setUpObserver()
     }
 
@@ -50,6 +54,7 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
         tvMovieTitle.text = data.title
         tvMovieDescription.text = data.overview
         ivPosterBackdrop.loadImage(data.backdropPath)
+        fabFavorite.setOnClickListener { favoriteClickListener(isFavorite) }
     }
 
     private fun setUpSimilarMovies(list: List<MovieItem>) {
@@ -67,6 +72,34 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
         detailAdapter.safeAddAll(list)
     }
 
+    private fun setUpFavoriteButton(isFavorite: Boolean) {
+        if (isFavorite) {
+            fabFavorite.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_favorite_active,
+                    null
+                )
+            )
+        } else {
+            fabFavorite.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.ic_favorite_inactive,
+                    null
+                )
+            )
+        }
+    }
+
+    private fun favoriteClickListener(isFavorite: Boolean) {
+        if (isFavorite) {
+            viewModel.removeFavoriteMovie(movieId)
+        } else {
+            movieItem?.let(viewModel::storeFavoriteMovie)
+        }
+    }
+
     private fun setUpObserver() {
         viewModel.state.observe(this, Observer { state ->
             when (state) {
@@ -78,6 +111,7 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
                     pbDetailScreen.makeGone()
                 }
                 is MovieDetailViewState.GetMovieData -> {
+                    movieItem = state.data
                     setUpDetailScreen(state.data)
 
                 }
@@ -102,6 +136,28 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
                         showErrorScreen()
                         makeVisible()
                     }
+                }
+                is MovieDetailViewState.StoredFavoriteMovie -> {
+                    isFavorite = true
+                    setUpFavoriteButton(isFavorite)
+                }
+
+                is MovieDetailViewState.FailedStoreFavoriteMovie -> {
+                    setUpFavoriteButton(isFavorite)
+                }
+
+                is MovieDetailViewState.RemovedFavoriteMovie -> {
+                    isFavorite = false
+                    setUpFavoriteButton(isFavorite)
+                }
+
+                is MovieDetailViewState.FailedRemoveFavoriteMovie -> {
+                    setUpFavoriteButton(isFavorite)
+                }
+
+                is MovieDetailViewState.FavoriteMovie -> {
+                    isFavorite = state.isFavorite
+                    setUpFavoriteButton(state.isFavorite)
                 }
             }
         })

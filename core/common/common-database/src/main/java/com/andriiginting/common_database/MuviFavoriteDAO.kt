@@ -8,19 +8,20 @@ import com.andriiginting.common_database.Constants.DELETE_FAVORITE_MOVIE_WITH_ID
 import com.andriiginting.common_database.Constants.FILTER_FAVORITE_MOVIE_WITH_ID
 import com.andriiginting.common_database.Constants.GET_ALL_FAVORITE_MOVIE
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
 
 @Dao
 interface MuviFavoriteDAO {
     @Query(GET_ALL_FAVORITE_MOVIE)
-    fun getAllFavoriteTheater(): Single<MuviFavorites>
+    fun getAllFavoriteMovie(): Single<MuviFavorites>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavoriteTheater(data: MuviFavorites): Completable
+    fun insertFavoriteMovie(data: MuviFavorites): Completable
 
     @Query(FILTER_FAVORITE_MOVIE_WITH_ID)
-    fun isFavorite(id: Int): Single<MuviFavorites>
+    fun isFavorite(movieId: Int): Maybe<MuviFavorites>
 
     @Query(DELETE_FAVORITE_MOVIE_WITH_ID)
-    fun deleteTheater(movieId: String): Completable
+    fun deleteMovie(movieId: String): Completable
 }

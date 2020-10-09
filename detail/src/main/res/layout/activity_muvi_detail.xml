@@ -32,7 +32,7 @@
         tools:targetApi="lollipop" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/ivTheaterFavorite"
+        android:id="@+id/fabFavorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -119,7 +119,7 @@
     <com.andriiginting.common_widget.MuviEmptyStates
         android:id="@+id/layoutEmptyStates"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="200dp"
         android:visibility="gone"
         tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"

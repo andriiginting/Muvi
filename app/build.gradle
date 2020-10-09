@@ -33,9 +33,7 @@ android {
         }
     }
 
-    android {
-        compileOptions.incremental = false
-    }
+    compileOptions.incremental = false
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,7 +45,7 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
-    dynamicFeatures = [':favorite']
+    android.dynamicFeatures = [':favorite']
 }
 
 repositories {
@@ -60,6 +58,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation libraries.multidex
     implementation project(":common-di")
+    implementation project(":common-database")
     implementation project(":core-network")
     implementation project(":home")
     implementation project(":detail")

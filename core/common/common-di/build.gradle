@@ -4,6 +4,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     implementation project(":core-network")
+    implementation project(":common-database")
 
     implementation libraries.dagger
     implementation libraries.retrofit2

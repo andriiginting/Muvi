@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.andriiginting.common_di.ViewModelKey
 import com.andriiginting.muvi.detail.data.MuviDetailRepository
 import com.andriiginting.muvi.detail.data.MuviDetailRepositoryImpl
+import com.andriiginting.muvi.detail.domain.MuviDetailMapper
+import com.andriiginting.muvi.detail.domain.MuviDetailMapperImpl
 import com.andriiginting.muvi.detail.domain.MuviDetailUseCase
 import com.andriiginting.muvi.detail.domain.MuviDetailUseCaseImpl
 import com.andriiginting.muvi.detail.presentation.MuviDetailViewModel
@@ -15,6 +17,9 @@ import dagger.multibindings.IntoMap
 abstract class MuviDetailModule {
     @Binds
     abstract fun provideRepository(binds: MuviDetailRepositoryImpl): MuviDetailRepository
+
+    @Binds
+    abstract fun provideMapper(binds: MuviDetailMapperImpl): MuviDetailMapper
 
     @Binds
     abstract fun provideUseCase(binds: MuviDetailUseCaseImpl): MuviDetailUseCase

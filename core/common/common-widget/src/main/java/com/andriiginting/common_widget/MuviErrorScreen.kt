@@ -21,6 +21,7 @@ class MuviErrorScreen @JvmOverloads constructor(
         ivErrorScreen.apply {
             makeVisible()
             setAnimation("alien_no_network.json")
+            playAnimation()
         }
         tvErrorDescription.makeVisible()
     }

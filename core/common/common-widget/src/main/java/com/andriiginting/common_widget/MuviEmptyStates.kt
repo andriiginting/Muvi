@@ -21,6 +21,7 @@ class MuviEmptyStates @JvmOverloads constructor(
         ivErrorScreen.apply {
             makeVisible()
             setAnimation("empty_states.json")
+            playAnimation()
         }
         tvErrorDescription.apply {
             text = context.resources.getString(R.string.empty_description)

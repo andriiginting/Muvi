@@ -8,6 +8,7 @@ import com.andriiginting.core_network.MovieItem
 import com.andriiginting.muvi.home.R
 import com.andriiginting.muvi.home.di.MuviHomeInjector
 import com.andriiginting.navigation.DetailNavigator
+import com.andriiginting.navigation.FavoriteNavigator
 import com.andriiginting.uttils.loadAnimation
 import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible

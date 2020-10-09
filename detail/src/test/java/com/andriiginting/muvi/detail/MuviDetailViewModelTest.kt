@@ -8,6 +8,8 @@ import com.andriiginting.muvi.detail.presentation.MuviDetailViewModel
 import com.andriiginting.uttils.testhelper.InstantRuleExecution
 import com.andriiginting.uttils.testhelper.TrampolineSchedulerRX
 import com.nhaarman.mockito_kotlin.*
+import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before
@@ -121,6 +123,97 @@ class MuviDetailViewModelTest {
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.ShowLoading)
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.HideLoading)
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.GetMovieDataError(error))
+
+        verifyNoMoreInteractions(useCase, observer)
+        clearInvocations(useCase, observer)
+    }
+
+    @Test
+    fun `when want to store movie to db should return success`() {
+        whenever(useCase.storeToDatabase(getMovieDummyResponse()))
+            .thenReturn(Completable.complete())
+
+        viewModel.storeFavoriteMovie(getMovieDummyResponse())
+
+        verify(useCase, atLeastOnce()).storeToDatabase(getMovieDummyResponse())
+        verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.StoredFavoriteMovie)
+
+        verifyNoMoreInteractions(useCase, observer)
+        clearInvocations(useCase, observer)
+    }
+
+    @Test
+    fun `when want to store movie to db should return error`() {
+        val error = Throwable("msg")
+        whenever(useCase.storeToDatabase(getMovieDummyResponse()))
+            .thenReturn(Completable.error(error))
+
+        viewModel.storeFavoriteMovie(getMovieDummyResponse())
+
+        verify(useCase, atLeastOnce()).storeToDatabase(getMovieDummyResponse())
+        verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.FailedStoreFavoriteMovie)
+
+        verifyNoMoreInteractions(useCase, observer)
+        clearInvocations(useCase, observer)
+    }
+
+    @Test
+    fun `when want to remove movie to db should return success`() {
+        val id = "123"
+        whenever(useCase.removeFromDatabase(id))
+            .thenReturn(Completable.complete())
+
+        viewModel.removeFavoriteMovie(id)
+
+        verify(useCase, atLeastOnce()).removeFromDatabase(id)
+        verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.RemovedFavoriteMovie)
+
+        verifyNoMoreInteractions(useCase, observer)
+        clearInvocations(useCase, observer)
+    }
+
+    @Test
+    fun `when want to remove movie to db should return error`() {
+        val error = Throwable("msg")
+        val id = "123"
+        whenever(useCase.removeFromDatabase(id))
+            .thenReturn(Completable.error(error))
+
+        viewModel.removeFavoriteMovie(id)
+
+        verify(useCase, atLeastOnce()).removeFromDatabase(id)
+        verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.FailedRemoveFavoriteMovie)
+
+        verifyNoMoreInteractions(useCase, observer)
+        clearInvocations(useCase, observer)
+    }
+
+    @Test
+    fun `when want check movie exist or not in db should return success`() {
+        val id = "123"
+        whenever(useCase.checkFavoriteMovie(id))
+            .thenReturn(Maybe.just(getMovieDummyResponse()))
+
+        viewModel.checkFavoriteMovie(id)
+
+        verify(useCase, atLeastOnce()).checkFavoriteMovie(id)
+        verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.FavoriteMovie(true))
+
+        verifyNoMoreInteractions(useCase, observer)
+        clearInvocations(useCase, observer)
+    }
+
+    @Test
+    fun `when want check movie exist or not in db should return error`() {
+        val error = Throwable("msg")
+        val id = "123"
+        whenever(useCase.checkFavoriteMovie(id))
+            .thenReturn(Maybe.error(error))
+
+        viewModel.checkFavoriteMovie(id)
+
+        verify(useCase, atLeastOnce()).checkFavoriteMovie(id)
+        verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.FavoriteMovie(false))
 
         verifyNoMoreInteractions(useCase, observer)
         clearInvocations(useCase, observer)
