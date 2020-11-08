@@ -12,6 +12,7 @@ import com.andriiginting.muvi.detail.di.MuviDetailInjector
 import com.andriiginting.muvi.detail.presentation.MovieDetailViewState
 import com.andriiginting.muvi.detail.presentation.MuviDetailViewHolder
 import com.andriiginting.muvi.detail.presentation.MuviDetailViewModel
+import com.andriiginting.navigation.FavoriteNavigator
 import com.andriiginting.uttils.loadImage
 import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible
@@ -54,7 +55,11 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
         tvMovieTitle.text = data.title
         tvMovieDescription.text = data.overview
         ivPosterBackdrop.loadImage(data.backdropPath)
-        fabFavorite.setOnClickListener { favoriteClickListener(isFavorite) }
+        fabFavorite.setOnClickListener {
+            favoriteClickListener(isFavorite)
+            FavoriteNavigator.getFavoritePageIntent()
+                .also(::startActivity)
+        }
     }
 
     private fun setUpSimilarMovies(list: List<MovieItem>) {
@@ -122,6 +127,7 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
                 }
 
                 is MovieDetailViewState.SimilarMovieEmpty -> {
+                    tvMore.makeGone()
                     layoutEmptyStates.apply {
                         showEmptyScreen()
                         makeVisible()

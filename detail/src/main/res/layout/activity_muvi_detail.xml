@@ -22,11 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:fabSize="mini"
+        android:visibility="gone"
         android:contentDescription="@string/image_backdrop_detail"
-        android:backgroundTint="@android:color/white"
         android:padding="8dp"
         android:src="@drawable/ic_back_arrow_back_24"
+        app:fabSize="mini"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop" />
@@ -36,12 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:clickable="true"
-        app:fabSize="mini"
         android:backgroundTint="@android:color/white"
+        android:clickable="true"
         android:contentDescription="@string/text_favorite_icon"
         android:focusable="true"
         android:src="@drawable/favorite_icon_selector"
+        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop" />
@@ -119,11 +119,11 @@
     <com.andriiginting.common_widget.MuviEmptyStates
         android:id="@+id/layoutEmptyStates"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="0dp"
         android:visibility="gone"
-        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/rvSimilarMovie" />
+        app:layout_constraintTop_toBottomOf="@id/tvMovieDescription"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

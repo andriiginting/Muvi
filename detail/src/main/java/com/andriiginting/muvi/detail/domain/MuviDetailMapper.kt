@@ -12,7 +12,7 @@ interface MuviDetailMapper {
 class MuviDetailMapperImpl @Inject constructor() : MuviDetailMapper {
     override fun mapToMuviFavorite(data: MovieItem): MuviFavorites {
         return MuviFavorites(
-            movieFavoriteId = data.movieId,
+            movieFavoriteId = data.movieId.takeIf { it.isNotEmpty() } ?: data.id,
             movieTitle = data.title,
             posterPath = data.posterPath,
             overview = data.overview,

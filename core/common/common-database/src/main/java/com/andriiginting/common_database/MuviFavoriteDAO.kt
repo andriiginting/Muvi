@@ -14,9 +14,9 @@ import io.reactivex.Single
 @Dao
 interface MuviFavoriteDAO {
     @Query(GET_ALL_FAVORITE_MOVIE)
-    fun getAllFavoriteMovie(): Single<MuviFavorites>
+    fun getAllFavoriteMovie(): Single<List<MuviFavorites>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun insertFavoriteMovie(data: MuviFavorites): Completable
 
     @Query(FILTER_FAVORITE_MOVIE_WITH_ID)

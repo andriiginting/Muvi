@@ -65,6 +65,7 @@ dependencies {
     implementation libraries.dagger
     kapt libraries.daggerCompiler
     implementation libraries.lottie
+    implementation libraries.stetho
 
     implementation libraries.deeplinkDispatch
     kapt libraries.deeplinkDispatchProcessor

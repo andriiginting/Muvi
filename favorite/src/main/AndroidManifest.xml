@@ -13,7 +13,7 @@
     </dist:module>
 
     <application>
-        <activity android:name=".FavoriteActivity"/>
+        <activity android:name=".presentation.FavoriteActivity"/>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import com.andriiginting.common_di.DaggerMuviAppComponent
 import com.andriiginting.common_di.MuviAppComponent
 import com.andriiginting.common_di.MuviDepsProvider
 import com.andriiginting.core_network.MuviNetworkModule
+import com.facebook.stetho.Stetho
 
 open class App : MultiDexApplication(), MuviDepsProvider {
 
@@ -14,6 +15,7 @@ open class App : MultiDexApplication(), MuviDepsProvider {
 
     override fun onCreate() {
         super.onCreate()
+        Stetho.initializeWithDefaults(this)
         appComponent = muviAppComponent()
         appComponent.inject(this)
     }

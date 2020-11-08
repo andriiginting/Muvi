@@ -1,6 +1,8 @@
 package com.andriiginting.muvi.detail.di
 
 import androidx.lifecycle.ViewModel
+import com.andriiginting.common_database.MuviDatabase
+import com.andriiginting.common_database.MuviFavoriteDAO
 import com.andriiginting.common_di.ViewModelKey
 import com.andriiginting.muvi.detail.data.MuviDetailRepository
 import com.andriiginting.muvi.detail.data.MuviDetailRepositoryImpl
@@ -11,6 +13,7 @@ import com.andriiginting.muvi.detail.domain.MuviDetailUseCaseImpl
 import com.andriiginting.muvi.detail.presentation.MuviDetailViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module

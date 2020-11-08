@@ -15,7 +15,6 @@ class MuviDatabaseModule {
     fun provideDatabase(context: Context): MuviDatabase {
         return Room
             .databaseBuilder(context, MuviDatabase::class.java, FAVORITE_DATABASE_NAME)
-            .fallbackToDestructiveMigration()
             .build()
     }
 
