@@ -2,6 +2,7 @@ package com.andriiginting.muvi.home.ui
 
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.andriiginting.base_ui.MuviBaseActivity
 import com.andriiginting.base_ui.MuviBaseAdapter
 import com.andriiginting.core_network.MovieItem
@@ -28,6 +29,7 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
         setUpAdapter()
         setUpHome()
         setupObserver()
+        setupFavoriteButton()
     }
 
     override fun setData() = viewModel.getMovieData()
@@ -45,11 +47,37 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
         }
     }
 
+    private fun setupFavoriteButton() {
+        fabFavoriteMovie.setOnClickListener {
+            FavoriteNavigator
+                .getFavoritePageIntent()
+                .let(::startActivity)
+        }
+
+        rvMovies.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0 || dy < 0) {
+                    fabFavoriteMovie.hide()
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    fabFavoriteMovie.show()
+                }
+            }
+        })
+    }
+
+
     private fun setUpAdapter() {
         homeAdapter = MuviBaseAdapter({ parent, _ ->
             HomeViewHolder.inflate(parent)
         }, { viewHolder, _, item ->
-            viewHolder.bind(item.posterPath)
+            viewHolder.bind(item.posterPath.orEmpty())
             viewHolder.setPosterAction {
                 DetailNavigator
                     .getDetailPageIntent(item.id)
