@@ -23,6 +23,9 @@ class MuviDetailViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(url: String) {
         Glide.with(itemView.context)
             .load("${BuildConfig.IMAGE_BASE_URL}$url")
+            .fallback(R.drawable.bg_circle_dark_grey)
+            .error(R.drawable.bg_circle_dark_grey)
+            .dontAnimate()
             .into(itemView.ivPoster)
     }
 }

@@ -23,6 +23,9 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(url: String) {
         Glide.with(itemView.context)
             .load("${BuildConfig.IMAGE_BASE_URL}$url")
+            .fallback(R.color.material_on_primary_disabled)
+            .error(R.color.material_on_primary_disabled)
+            .dontAnimate()
             .into(itemView.ivPoster)
     }
 

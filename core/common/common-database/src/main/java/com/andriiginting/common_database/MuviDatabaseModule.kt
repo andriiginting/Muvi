@@ -15,12 +15,7 @@ class MuviDatabaseModule {
     fun provideDatabase(context: Context): MuviDatabase {
         return Room
             .databaseBuilder(context, MuviDatabase::class.java, FAVORITE_DATABASE_NAME)
+            .fallbackToDestructiveMigration()
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideDatabaseDAO(muviDatabase: MuviDatabase): MuviFavoriteDAO {
-        return muviDatabase.theaterDAO()
     }
 }

@@ -15,7 +15,6 @@ open class App : MultiDexApplication(), MuviDepsProvider {
 
     override fun onCreate() {
         super.onCreate()
-        Stetho.initializeWithDefaults(this)
         appComponent = muviAppComponent()
         appComponent.inject(this)
     }

@@ -46,6 +46,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@android:color/white"
+        android:clickable="true"
+        android:contentDescription="@string/text_favorite_icon"
+        android:focusable="true"
+        android:src="@drawable/ic_back_arrow_back_24"
+        app:fabSize="mini"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop" />
+
     <TextView
         android:id="@+id/tvMovieTitle"
         android:layout_width="match_parent"

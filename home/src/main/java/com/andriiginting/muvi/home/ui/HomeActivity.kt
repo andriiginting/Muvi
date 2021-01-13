@@ -94,9 +94,12 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
                         makeVisible()
                         loadAnimation("loading.json")
                     }
+
+                    fabFavoriteMovie.makeGone()
                 }
                 is HomeViewState.HideLoading -> {
                     ivLoadingIndicator.makeGone()
+                    fabFavoriteMovie.makeVisible()
                 }
                 is HomeViewState.GetMovieDataError -> {
                     layoutError.showErrorScreen()

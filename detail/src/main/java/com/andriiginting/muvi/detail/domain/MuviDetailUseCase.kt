@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 interface MuviDetailUseCase {
     fun getDetailMovies(movieId: String): Single<DetailsMovieData>
-    fun storeToDatabase(data: MovieItem): Completable
+    fun storeToDatabase(data: MovieItem): Single<Long>
     fun removeFromDatabase(movieId: String): Completable
     fun checkFavoriteMovie(movieId: String): Maybe<MovieItem>
 }
@@ -34,11 +34,10 @@ class MuviDetailUseCaseImpl @Inject constructor(
         )
     }
 
-    override fun storeToDatabase(data: MovieItem): Completable {
-        return Completable.fromCallable {
-            val movieEntity = mapper.mapToMuviFavorite(data)
-            repository.storeToDatabase(movieEntity)
-        }.compose(completeIo())
+    override fun storeToDatabase(data: MovieItem): Single<Long> {
+        val movieEntity = mapper.mapToMuviFavorite(data)
+        return repository.storeToDatabase(movieEntity)
+            .compose(singleIo())
     }
 
     override fun removeFromDatabase(movieId: String): Completable {

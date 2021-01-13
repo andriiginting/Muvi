@@ -1,6 +1,5 @@
 package com.andriiginting.favorite.presentation
 
-import android.util.Log
 import com.andriiginting.base_ui.MuviBaseViewModel
 import com.andriiginting.core_network.MovieItem
 import com.andriiginting.favorite.domain.MuviFavoriteUseCase
@@ -12,17 +11,14 @@ class MuviFavoriteViewModel @Inject constructor(
 
     fun getMovies() {
         useCase.getAllFavoriteMovie()
-            .doOnSubscribe { _state.value = FavoriteViewState.ShowLoading }
-            .doAfterTerminate { _state.value = FavoriteViewState.HideLoading }
             .subscribe({ data ->
-                Log.d("favorite", data.toString())
+                _state.value = FavoriteViewState.HideLoading
                 if (data.isEmpty()) {
                     _state.postValue(FavoriteViewState.ShowEmptyState)
                 } else {
                     _state.postValue(FavoriteViewState.GetFavoriteMovie(data))
                 }
             }, {
-                Log.d("favorite", it.message.toString())
                 _state.value = FavoriteViewState.ShowError
             }).let(addDisposable::add)
     }

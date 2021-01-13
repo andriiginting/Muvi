@@ -3,12 +3,14 @@ package com.andriiginting.favorite.domain
 import com.andriiginting.common_database.MuviFavorites
 import com.andriiginting.core_network.MovieItem
 import com.andriiginting.favorite.data.MuviFavoriteRepository
+import com.andriiginting.uttils.flowableIo
 import com.andriiginting.uttils.singleIo
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
 interface MuviFavoriteUseCase {
-    fun getAllFavoriteMovie(): Single<List<MovieItem>>
+    fun getAllFavoriteMovie(): Flowable<List<MovieItem>>
 }
 
 class MuviFavoriteUseCaseImpl @Inject constructor(
@@ -32,9 +34,9 @@ class MuviFavoriteUseCaseImpl @Inject constructor(
         return list
     }
 
-    override fun getAllFavoriteMovie(): Single<List<MovieItem>> {
+    override fun getAllFavoriteMovie(): Flowable<List<MovieItem>> {
         return repository.getAllFavoriteMovie()
             .map(::mapToMovieModel)
-            .compose(singleIo())
+            .compose(flowableIo())
     }
 }

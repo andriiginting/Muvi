@@ -1,5 +1,6 @@
 package com.andriiginting.muvi.detail.presentation
 
+import android.util.Log
 import com.andriiginting.base_ui.MuviBaseViewModel
 import com.andriiginting.core_network.DetailsMovieData
 import com.andriiginting.core_network.MovieItem
@@ -28,9 +29,11 @@ class MuviDetailViewModel @Inject constructor(
     fun storeFavoriteMovie(movieItem: MovieItem) {
         useCase.storeToDatabase(movieItem)
             .subscribe({
+                Log.e("muvi-database", "successw to store favorite movie")
                 _state.value = MovieDetailViewState.StoredFavoriteMovie
             }, { error ->
                 Timber.e(error, "failed to store favorite movie")
+                Log.e("muvi-database", "failed to store favorite movie")
                 _state.value = MovieDetailViewState.FailedStoreFavoriteMovie
             })
             .let(addDisposable::add)

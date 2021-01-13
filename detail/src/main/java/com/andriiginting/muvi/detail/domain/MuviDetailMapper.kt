@@ -14,9 +14,9 @@ class MuviDetailMapperImpl @Inject constructor() : MuviDetailMapper {
         return MuviFavorites(
             movieFavoriteId = data.movieId.takeIf { it.isNotEmpty() } ?: data.id,
             movieTitle = data.title,
-            posterPath = data.posterPath,
+            posterPath = data.posterPath.orEmpty(),
             overview = data.overview,
-            backdropPath = data.backdropPath,
+            backdropPath = data.backdropPath.orEmpty(),
             releaseDate = data.releaseDate
         )
     }

@@ -1,6 +1,5 @@
 package com.andriiginting.favorite.presentation
 
-import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.airbnb.deeplinkdispatch.DeepLink
@@ -21,7 +20,7 @@ class FavoriteActivity : MuviBaseActivity<MuviFavoriteViewModel>() {
         MuviBaseAdapter<MovieItem, MuviFavoriteViewHolder>({ parent, _ ->
             MuviFavoriteViewHolder.inflate(parent)
         }, { viewHolder, _, item ->
-            viewHolder.bind(item.posterPath)
+            viewHolder.bind(item.posterPath.orEmpty())
         })
     }
 
@@ -65,7 +64,6 @@ class FavoriteActivity : MuviBaseActivity<MuviFavoriteViewModel>() {
                     pbLoadingIndicator.makeGone()
                 }
                 is FavoriteViewState.GetFavoriteMovie -> {
-                    Log.d("favorite", state.data.toString())
                     favoriteAdapter.safeAddAll(state.data)
                     rvFavorite.makeVisible()
                 }

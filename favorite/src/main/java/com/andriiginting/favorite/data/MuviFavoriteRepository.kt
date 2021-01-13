@@ -1,18 +1,20 @@
 package com.andriiginting.favorite.data
 
+import com.andriiginting.common_database.MuviDatabase
 import com.andriiginting.common_database.MuviFavoriteDAO
 import com.andriiginting.common_database.MuviFavorites
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
 interface MuviFavoriteRepository {
-    fun getAllFavoriteMovie(): Single<List<MuviFavorites>>
+    fun getAllFavoriteMovie(): Flowable<List<MuviFavorites>>
 }
 
 class MuviFavoriteRepositoryImpl @Inject constructor(
-    private val muviFavoriteDAO: MuviFavoriteDAO
+    private val muviFavoriteDAO: MuviDatabase
 ) : MuviFavoriteRepository {
-    override fun getAllFavoriteMovie(): Single<List<MuviFavorites>> {
-        return muviFavoriteDAO.getAllFavoriteMovie()
+    override fun getAllFavoriteMovie(): Flowable<List<MuviFavorites>> {
+        return muviFavoriteDAO.theaterDAO().getAllFavoriteMovie()
     }
 }

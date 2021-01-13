@@ -54,11 +54,13 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
     private fun setUpDetailScreen(data: MovieItem) {
         tvMovieTitle.text = data.title
         tvMovieDescription.text = data.overview
-        ivPosterBackdrop.loadImage(data.backdropPath)
+        ivPosterBackdrop.loadImage(data.backdropPath.orEmpty())
         fabFavorite.setOnClickListener {
             favoriteClickListener(isFavorite)
-            FavoriteNavigator.getFavoritePageIntent()
-                .also(::startActivity)
+        }
+
+        fabBack.setOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -67,7 +69,7 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
             MuviBaseAdapter({ parent, _ ->
                 MuviDetailViewHolder.inflate(parent)
             }, { viewHolder, _, item ->
-                viewHolder.bind(item.posterPath)
+                viewHolder.bind(item.posterPath.orEmpty())
             })
 
         rvSimilarMovie.apply {
@@ -98,6 +100,7 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
     }
 
     private fun favoriteClickListener(isFavorite: Boolean) {
+        setUpFavoriteButton(isFavorite)
         if (isFavorite) {
             viewModel.removeFavoriteMovie(movieId)
         } else {

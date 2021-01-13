@@ -35,7 +35,9 @@ dependencies {
     implementation libraries.glide
     implementation libraries.lottie
     implementation libraries.deeplinkDispatch
+    implementation libraries.roomRuntime
     kapt libraries.deeplinkDispatchProcessor
+    kapt libraries.roomCompiler
 
     testImplementation testLibraries.junit
     testImplementation testLibraries.mockitoCore
