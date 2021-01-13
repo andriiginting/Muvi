@@ -32,3 +32,13 @@ fun <T> load(clazz: Class<T>, file: String): T {
     val fixtureStreamReader = InputStreamReader(clazz.classLoader?.getResourceAsStream(file))
     return Gson().fromJson(fixtureStreamReader, clazz)
 }
+
+fun getMovieDummyResponse() = MovieItem(
+    id = "324668",
+    movieId = "324668",
+    posterPath = "/lFSSLTlFozwpaGlO31OoUeirBgQ.jpg",
+    title = "Jason Bourne",
+    overview = "The most dangerous former operative of the CIA is drawn out of hiding to uncover hidden truths about his past.",
+    backdropPath = "/AoT2YrJUJlg5vKE3iMOLvHlTd3m.jpg",
+    releaseDate = "2016-07-27"
+)

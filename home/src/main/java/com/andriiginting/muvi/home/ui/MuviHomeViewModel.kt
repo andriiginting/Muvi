@@ -1,6 +1,5 @@
 package com.andriiginting.muvi.home.ui
 
-import android.util.Log
 import com.andriiginting.base_ui.MuviBaseViewModel
 import com.andriiginting.core_network.MovieResponse
 import com.andriiginting.muvi.home.domain.MuviHomeUseCase

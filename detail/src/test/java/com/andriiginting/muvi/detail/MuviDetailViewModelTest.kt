@@ -131,7 +131,7 @@ class MuviDetailViewModelTest {
     @Test
     fun `when want to store movie to db should return success`() {
         whenever(useCase.storeToDatabase(getMovieDummyResponse()))
-            .thenReturn(Completable.complete())
+            .thenReturn(Single.just(1.toLong()))
 
         viewModel.storeFavoriteMovie(getMovieDummyResponse())
 
@@ -146,7 +146,7 @@ class MuviDetailViewModelTest {
     fun `when want to store movie to db should return error`() {
         val error = Throwable("msg")
         whenever(useCase.storeToDatabase(getMovieDummyResponse()))
-            .thenReturn(Completable.error(error))
+            .thenReturn(Single.error(error))
 
         viewModel.storeFavoriteMovie(getMovieDummyResponse())
 

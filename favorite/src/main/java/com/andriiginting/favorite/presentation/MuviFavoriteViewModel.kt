@@ -19,6 +19,7 @@ class MuviFavoriteViewModel @Inject constructor(
                     _state.postValue(FavoriteViewState.GetFavoriteMovie(data))
                 }
             }, {
+                _state.value = FavoriteViewState.HideLoading
                 _state.value = FavoriteViewState.ShowError
             }).let(addDisposable::add)
     }

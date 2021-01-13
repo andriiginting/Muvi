@@ -83,8 +83,14 @@ dependencies {
     testImplementation testLibraries.mockitoCore
     testImplementation testLibraries.mockitoKotlin
     testImplementation testLibraries.mockitoInline
+    testImplementation testSupportDependencies.core
+    testImplementation testLibraries.coreTesting
+    testImplementation testSupportDependencies.extRunner
+    testImplementation testSupportDependencies.roboelectric
 
     androidTestImplementation testLibraries.mockitoAndroid
+    androidTestImplementation testSupportDependencies.espressoCore
+    androidTestImplementation testSupportDependencies.extRunner
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

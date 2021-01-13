@@ -1,5 +1,11 @@
 package com.andriiginting.muvi.detail
 
+import android.content.Context
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.andriiginting.common_database.MuviDatabase
 import com.andriiginting.common_database.MuviFavoriteDAO
 import com.andriiginting.core_network.MuviDetailService
 import com.andriiginting.muvi.detail.data.MuviDetailRepository
@@ -8,19 +14,33 @@ import com.nhaarman.mockito_kotlin.atLeastOnce
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.Completable
-import io.reactivex.Maybe
 import io.reactivex.Single
+import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class MuviDetailRepositoryTest {
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
     private val service: MuviDetailService = mock()
-    private val database: MuviFavoriteDAO = mock()
+    private lateinit var database: MuviDatabase
+    private lateinit var dao: MuviFavoriteDAO
     private lateinit var repository: MuviDetailRepository
 
     @Before
     fun setUp() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        database = Room.inMemoryDatabaseBuilder(context, MuviDatabase::class.java)
+            .allowMainThreadQueries()
+            .build()
+
+        dao = database.theaterDAO()
+
         repository =
             MuviDetailRepositoryImpl(service, database)
     }
@@ -45,91 +65,47 @@ class MuviDetailRepositoryTest {
 
     @Test
     fun `when check movie popular movie store in db will return success`() {
-        val id = 1
-        whenever(database.isFavorite(id))
-            .thenReturn(Maybe.just(getFavoritesDummy()))
+        val id = 0
+        dao.insertFavoriteMovie(getFavoritesDummy())
 
-        val test = database.isFavorite(id).test()
+        val test = dao.isFavorite(id).test()
         repository.isFavoriteMovie(id)
 
         test.apply {
             assertComplete()
             assertNoErrors()
-            assertValue {
-                it == getFavoritesDummy()
-            }
         }
-
-        verify(database, atLeastOnce()).isFavorite(id)
     }
 
     @Test
     fun `when store popular movie to db return success`() {
+        dao.insertFavoriteMovie(getFavoritesDummy())
 
-        whenever(database.insertFavoriteMovie(getFavoritesDummy()))
-            .thenReturn(Completable.complete())
-
-        val test = database.insertFavoriteMovie(getFavoritesDummy()).test()
         repository.storeToDatabase(getFavoritesDummy())
 
-        test.apply {
-            assertComplete()
-            assertNoErrors()
-        }
-
-        verify(database, atLeastOnce()).insertFavoriteMovie(getFavoritesDummy())
-    }
-
-    @Test
-    fun `when store popular movie to db return error`() {
-        val error = Throwable("unable to save to db")
-
-        whenever(database.insertFavoriteMovie(getFavoritesDummy()))
-            .thenReturn(Completable.error(error))
-
-        val test = database.insertFavoriteMovie(getFavoritesDummy()).test()
-        repository.storeToDatabase(getFavoritesDummy())
-
-        test.apply {
-            assertNotComplete()
-            assertError(error)
-        }
-
-        verify(database, atLeastOnce()).insertFavoriteMovie(getFavoritesDummy())
+        dao.getAllFavoriteMovie()
+            .test()
+            .assertValue {
+                it.first().movieTitle == getFavoritesDummy().movieTitle
+            }
     }
 
     @Test
     fun `when remove popular movie to db return success`() {
         val id = "1"
-        whenever(database.deleteMovie(id))
-            .thenReturn(Completable.complete())
+        dao.insertFavoriteMovie(getFavoritesDummy())
 
-        val test = database.deleteMovie(id).test()
+        val test = dao.deleteMovie(id).test()
         repository.removeFromDatabase(id)
 
         test.apply {
             assertComplete()
             assertNoErrors()
         }
-
-        verify(database, atLeastOnce()).deleteMovie(id)
     }
 
-    @Test
-    fun `when remove popular movie to db return error`() {
-        val error = Throwable("unable to remove from db")
-        val id = "1"
-        whenever(database.deleteMovie(id))
-            .thenReturn(Completable.error(error))
-
-        val test = database.deleteMovie(id).test()
-        repository.removeFromDatabase(id)
-
-        test.apply {
-            assertNotComplete()
-            assertError(error)
-        }
-
-        verify(database, atLeastOnce()).deleteMovie(id)
+    @After
+    fun tearDown() {
+        database.close()
     }
 }

@@ -29,11 +29,9 @@ class MuviDetailViewModel @Inject constructor(
     fun storeFavoriteMovie(movieItem: MovieItem) {
         useCase.storeToDatabase(movieItem)
             .subscribe({
-                Log.e("muvi-database", "successw to store favorite movie")
                 _state.value = MovieDetailViewState.StoredFavoriteMovie
             }, { error ->
                 Timber.e(error, "failed to store favorite movie")
-                Log.e("muvi-database", "failed to store favorite movie")
                 _state.value = MovieDetailViewState.FailedStoreFavoriteMovie
             })
             .let(addDisposable::add)

@@ -61,10 +61,11 @@ class MuviDetailUseCaseTest {
 
     @Test
     fun `when want to store to database should return success`(){
+        val id = 1.toLong()
         whenever(mapper.mapToMuviFavorite(getMovieDummyResponse()))
             .thenReturn(getFavoritesDummy())
         whenever(repository.storeToDatabase(getFavoritesDummy()))
-            .thenReturn(Completable.complete())
+            .thenReturn(Single.just(id))
 
         val test = useCase.storeToDatabase(getMovieDummyResponse()).test()
 

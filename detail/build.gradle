@@ -40,12 +40,18 @@ dependencies {
     kapt libraries.roomCompiler
 
     testImplementation testLibraries.junit
+    testImplementation testLibraries.junitRunner
+    testImplementation testLibraries.roomTest
     testImplementation testLibraries.mockitoCore
     testImplementation testLibraries.mockitoKotlin
     testImplementation testLibraries.mockitoInline
+    testImplementation testLibraries.coreTesting
+    testImplementation testSupportDependencies.core
+    testImplementation testSupportDependencies.extRunner
+    testImplementation testSupportDependencies.roboelectric
 
     androidTestImplementation testLibraries.mockitoAndroid
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation testSupportDependencies.espressoCore
+    androidTestImplementation testSupportDependencies.extRunner
 }
