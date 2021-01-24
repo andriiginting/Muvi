@@ -2,4 +2,5 @@
     <string name="image_backdrop_detail">Backdrop Image</string>
     <string name="text_favorite_icon">Favorite Icon</string>
     <string name="more_like_this">More Like This</string>
+    <string name="toast_error_message">Something wrong! We will get back</string>
 </resources>

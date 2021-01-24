@@ -10,7 +10,6 @@ import com.nhaarman.mockito_kotlin.atLeastOnce
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import org.junit.After
@@ -83,7 +82,7 @@ class MuviDetailUseCaseTest {
     fun `when want to remove from database should return success`(){
         val id = "123"
         whenever(repository.removeFromDatabase(id))
-            .thenReturn(Completable.complete())
+            .thenReturn(Single.just(Unit))
 
         val test = useCase.removeFromDatabase(id).test()
 

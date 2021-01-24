@@ -1,11 +1,12 @@
 package com.andriiginting.muvi.detail.presentation
 
-import android.util.Log
 import com.andriiginting.base_ui.MuviBaseViewModel
 import com.andriiginting.core_network.DetailsMovieData
 import com.andriiginting.core_network.MovieItem
 import com.andriiginting.muvi.detail.domain.MuviDetailUseCase
 import com.andriiginting.uttils.singleIo
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -27,11 +28,16 @@ class MuviDetailViewModel @Inject constructor(
     }
 
     fun storeFavoriteMovie(movieItem: MovieItem) {
+        _state.value = MovieDetailViewState.ShowLoading
         useCase.storeToDatabase(movieItem)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                _state.value = MovieDetailViewState.HideLoading
                 _state.value = MovieDetailViewState.StoredFavoriteMovie
             }, { error ->
                 Timber.e(error, "failed to store favorite movie")
+                _state.value = MovieDetailViewState.HideLoading
                 _state.value = MovieDetailViewState.FailedStoreFavoriteMovie
             })
             .let(addDisposable::add)
@@ -39,10 +45,13 @@ class MuviDetailViewModel @Inject constructor(
 
     fun removeFavoriteMovie(movieId: String) {
         useCase.removeFromDatabase(movieId)
+            .doOnSubscribe { _state.postValue(MovieDetailViewState.ShowLoading) }
             .subscribe({
+                _state.value = MovieDetailViewState.HideLoading
                 _state.value = MovieDetailViewState.RemovedFavoriteMovie
             }, { error ->
                 Timber.e(error, "failed to remove favorite movie")
+                _state.value = MovieDetailViewState.HideLoading
                 _state.value = MovieDetailViewState.FailedRemoveFavoriteMovie
             })
             .let(addDisposable::add)

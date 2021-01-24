@@ -1,7 +1,7 @@
 package com.andriiginting.muvi.detail
 
 import android.os.Bundle
-import androidx.core.content.res.ResourcesCompat
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import com.airbnb.deeplinkdispatch.DeepLink
@@ -12,7 +12,6 @@ import com.andriiginting.muvi.detail.di.MuviDetailInjector
 import com.andriiginting.muvi.detail.presentation.MovieDetailViewState
 import com.andriiginting.muvi.detail.presentation.MuviDetailViewHolder
 import com.andriiginting.muvi.detail.presentation.MuviDetailViewModel
-import com.andriiginting.navigation.FavoriteNavigator
 import com.andriiginting.uttils.loadImage
 import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible
@@ -23,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_muvi_detail.*
 class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
 
     private var movieId: String = ""
-    private var movieItem: MovieItem? = null
+    private var movieItem: MovieItem = MovieItem.default()
     private var isFavorite: Boolean = false
 
     override fun getLayoutId(): Int = R.layout.activity_muvi_detail
@@ -80,31 +79,15 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
     }
 
     private fun setUpFavoriteButton(isFavorite: Boolean) {
-        if (isFavorite) {
-            fabFavorite.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.ic_favorite_active,
-                    null
-                )
-            )
-        } else {
-            fabFavorite.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.ic_favorite_inactive,
-                    null
-                )
-            )
-        }
+        fabFavorite.isSelected = isFavorite
     }
 
     private fun favoriteClickListener(isFavorite: Boolean) {
-        setUpFavoriteButton(isFavorite)
+        setUpFavoriteButton(!isFavorite)
         if (isFavorite) {
             viewModel.removeFavoriteMovie(movieId)
         } else {
-            movieItem?.let(viewModel::storeFavoriteMovie)
+            movieItem.let(viewModel::storeFavoriteMovie)
         }
     }
 
@@ -113,10 +96,12 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
             when (state) {
                 is MovieDetailViewState.ShowLoading -> {
                     pbDetailScreen.makeVisible()
+                    fabFavorite.isClickable = false
                 }
 
                 is MovieDetailViewState.HideLoading -> {
                     pbDetailScreen.makeGone()
+                    fabFavorite.isClickable = true
                 }
                 is MovieDetailViewState.GetMovieData -> {
                     movieItem = state.data
@@ -131,28 +116,28 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
 
                 is MovieDetailViewState.SimilarMovieEmpty -> {
                     tvMore.makeGone()
-                    layoutEmptyStates.apply {
-                        showEmptyScreen()
-                        makeVisible()
-                    }
+                    layoutEmptyStates.showEmptyScreen()
                     pbDetailScreen.makeGone()
                     setUpSimilarMovies(emptyList())
                 }
 
                 is MovieDetailViewState.GetMovieDataError -> {
                     pbDetailScreen.makeGone()
-                    layoutError.apply {
-                        showErrorScreen()
-                        makeVisible()
-                    }
+                    layoutError.showErrorScreen()
                 }
+
                 is MovieDetailViewState.StoredFavoriteMovie -> {
                     isFavorite = true
+                    fabFavorite.isClickable = true
                     setUpFavoriteButton(isFavorite)
                 }
 
                 is MovieDetailViewState.FailedStoreFavoriteMovie -> {
-                    setUpFavoriteButton(isFavorite)
+                    Toast.makeText(
+                        this,
+                        getString(R.string.toast_error_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 is MovieDetailViewState.RemovedFavoriteMovie -> {
@@ -161,7 +146,11 @@ class MuviDetailActivity : MuviBaseActivity<MuviDetailViewModel>() {
                 }
 
                 is MovieDetailViewState.FailedRemoveFavoriteMovie -> {
-                    setUpFavoriteButton(isFavorite)
+                    Toast.makeText(
+                        this,
+                        getString(R.string.toast_error_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 is MovieDetailViewState.FavoriteMovie -> {

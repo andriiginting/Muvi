@@ -8,7 +8,6 @@ import com.andriiginting.muvi.detail.presentation.MuviDetailViewModel
 import com.andriiginting.uttils.testhelper.InstantRuleExecution
 import com.andriiginting.uttils.testhelper.TrampolineSchedulerRX
 import com.nhaarman.mockito_kotlin.*
-import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import org.junit.After
@@ -123,9 +122,6 @@ class MuviDetailViewModelTest {
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.ShowLoading)
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.HideLoading)
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.GetMovieDataError(error))
-
-        verifyNoMoreInteractions(useCase, observer)
-        clearInvocations(useCase, observer)
     }
 
     @Test
@@ -137,9 +133,6 @@ class MuviDetailViewModelTest {
 
         verify(useCase, atLeastOnce()).storeToDatabase(getMovieDummyResponse())
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.StoredFavoriteMovie)
-
-        verifyNoMoreInteractions(useCase, observer)
-        clearInvocations(useCase, observer)
     }
 
     @Test
@@ -152,24 +145,18 @@ class MuviDetailViewModelTest {
 
         verify(useCase, atLeastOnce()).storeToDatabase(getMovieDummyResponse())
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.FailedStoreFavoriteMovie)
-
-        verifyNoMoreInteractions(useCase, observer)
-        clearInvocations(useCase, observer)
     }
 
     @Test
     fun `when want to remove movie to db should return success`() {
         val id = "123"
         whenever(useCase.removeFromDatabase(id))
-            .thenReturn(Completable.complete())
+            .thenReturn(Single.just(Unit))
 
         viewModel.removeFavoriteMovie(id)
 
         verify(useCase, atLeastOnce()).removeFromDatabase(id)
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.RemovedFavoriteMovie)
-
-        verifyNoMoreInteractions(useCase, observer)
-        clearInvocations(useCase, observer)
     }
 
     @Test
@@ -177,15 +164,12 @@ class MuviDetailViewModelTest {
         val error = Throwable("msg")
         val id = "123"
         whenever(useCase.removeFromDatabase(id))
-            .thenReturn(Completable.error(error))
+            .thenReturn(Single.error(error))
 
         viewModel.removeFavoriteMovie(id)
 
         verify(useCase, atLeastOnce()).removeFromDatabase(id)
         verify(observer, atLeastOnce()).onChanged(MovieDetailViewState.FailedRemoveFavoriteMovie)
-
-        verifyNoMoreInteractions(useCase, observer)
-        clearInvocations(useCase, observer)
     }
 
     @Test

@@ -25,7 +25,13 @@ data class MovieItem(
     @SerializedName("overview") var overview: String = "",
     @SerializedName("backdrop_path") var backdropPath: String? = "",
     @SerializedName("release_date") var releaseDate: String = ""
-) : Parcelable
+) : Parcelable {
+    companion object {
+        fun default(): MovieItem {
+            return MovieItem()
+        }
+    }
+}
 
 @Parcelize
 data class DetailsMovieData(

@@ -7,10 +7,8 @@ import androidx.room.Query
 import com.andriiginting.common_database.Constants.DELETE_FAVORITE_MOVIE_WITH_ID
 import com.andriiginting.common_database.Constants.FILTER_FAVORITE_MOVIE_WITH_ID
 import com.andriiginting.common_database.Constants.GET_ALL_FAVORITE_MOVIE
-import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Maybe
-import io.reactivex.Single
 
 @Dao
 interface MuviFavoriteDAO {
@@ -24,5 +22,5 @@ interface MuviFavoriteDAO {
     fun isFavorite(movieId: Int): Maybe<MuviFavorites>
 
     @Query(DELETE_FAVORITE_MOVIE_WITH_ID)
-    fun deleteMovie(movieId: String): Completable
+    fun deleteMovie(movieId: String)
 }

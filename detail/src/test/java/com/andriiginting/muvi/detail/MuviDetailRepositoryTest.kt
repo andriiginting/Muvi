@@ -95,13 +95,11 @@ class MuviDetailRepositoryTest {
         val id = "1"
         dao.insertFavoriteMovie(getFavoritesDummy())
 
-        val test = dao.deleteMovie(id).test()
         repository.removeFromDatabase(id)
 
-        test.apply {
-            assertComplete()
-            assertNoErrors()
-        }
+        dao.getAllFavoriteMovie()
+            .test()
+            .assertNoErrors()
     }
 
     @After

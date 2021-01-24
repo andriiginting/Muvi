@@ -71,15 +71,17 @@ class FavoriteActivity : MuviBaseActivity<MuviFavoriteViewModel>() {
                     pbLoadingIndicator.makeGone()
                     layoutError.makeVisible()
                     layoutError.showErrorScreen()
-                    emptyScreen.makeGone()
+                    emptyScreen.hideEmptyScreen()
                     rvFavorite.makeGone()
                 }
 
                 is FavoriteViewState.ShowEmptyState -> {
                     pbLoadingIndicator.makeGone()
                     layoutError.makeGone()
-                    emptyScreen.makeVisible()
-                    emptyScreen.showEmptyScreen()
+                    emptyScreen.apply {
+                        makeVisible()
+                        showEmptyScreen()
+                    }
                     rvFavorite.makeGone()
                 }
             }

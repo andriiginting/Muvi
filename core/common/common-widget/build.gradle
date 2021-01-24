@@ -6,9 +6,8 @@ dependencies {
 
     implementation supportDependencies.appCompat
     implementation supportDependencies.constraintLayout
-    implementation supportDependencies.design
+    api supportDependencies.design
     implementation libraries.kotlinCore
-    implementation libraries.javaxAnnotation
     implementation libraries.glide
     implementation libraries.lottie
 }
