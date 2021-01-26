@@ -76,6 +76,7 @@ dependencies {
     implementation libraries.lottie
     implementation libraries.deeplinkDispatch
     implementation libraries.roomRuntime
+    implementation libraries.shimmer
     kapt libraries.deeplinkDispatchProcessor
     kapt libraries.roomCompiler
 

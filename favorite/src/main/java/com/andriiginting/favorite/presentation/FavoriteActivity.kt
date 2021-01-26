@@ -12,6 +12,7 @@ import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible
 import com.andriiginting.uttils.setGridView
 import kotlinx.android.synthetic.main.activity_favorite.*
+import kotlinx.android.synthetic.main.item_loading_state.*
 
 @DeepLink("muvi://favorite")
 class FavoriteActivity : MuviBaseActivity<MuviFavoriteViewModel>() {
@@ -58,17 +59,22 @@ class FavoriteActivity : MuviBaseActivity<MuviFavoriteViewModel>() {
         viewModel.state.observe(this, Observer { state ->
             when (state) {
                 is FavoriteViewState.ShowLoading -> {
-                    pbLoadingIndicator.makeVisible()
+                    ivLoadingIndicator.apply {
+                        makeVisible()
+                        startShimmer()
+                    }
                 }
                 is FavoriteViewState.HideLoading -> {
-                    pbLoadingIndicator.makeGone()
+                    ivLoadingIndicator.apply {
+                        makeGone()
+                        stopShimmer()
+                    }
                 }
                 is FavoriteViewState.GetFavoriteMovie -> {
                     favoriteAdapter.safeAddAll(state.data)
                     rvFavorite.makeVisible()
                 }
                 is FavoriteViewState.ShowError -> {
-                    pbLoadingIndicator.makeGone()
                     layoutError.makeVisible()
                     layoutError.showErrorScreen()
                     emptyScreen.hideEmptyScreen()
@@ -76,7 +82,6 @@ class FavoriteActivity : MuviBaseActivity<MuviFavoriteViewModel>() {
                 }
 
                 is FavoriteViewState.ShowEmptyState -> {
-                    pbLoadingIndicator.makeGone()
                     layoutError.makeGone()
                     emptyScreen.apply {
                         makeVisible()

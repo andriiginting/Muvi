@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+    tools:ignore="MissingDefaultResource">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/ivLoadingIndicator"
@@ -31,4 +32,5 @@
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
+
 </merge>

@@ -65,7 +65,8 @@ ext {
             lottie                   : "com.airbnb.android:lottie:${lottieVersion}",
             deeplinkDispatch         : "com.airbnb:deeplinkdispatch:${deeplinkDispatchVersion}",
             deeplinkDispatchProcessor: "com.airbnb:deeplinkdispatch-processor:${deeplinkDispatchVersion}",
-            stetho                   : "com.facebook.stetho:stetho:$stethoVersion"
+            stetho                   : "com.facebook.stetho:stetho:$stethoVersion",
+            shimmer                  : 'com.facebook.shimmer:shimmer:0.5.0'
     ]
 
     supportDependencies = [

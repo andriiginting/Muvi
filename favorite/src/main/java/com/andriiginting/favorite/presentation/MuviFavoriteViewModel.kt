@@ -11,8 +11,8 @@ class MuviFavoriteViewModel @Inject constructor(
 
     fun getMovies() {
         useCase.getAllFavoriteMovie()
+            .doAfterTerminate { _state.value = FavoriteViewState.HideLoading }
             .subscribe({ data ->
-                _state.value = FavoriteViewState.HideLoading
                 if (data.isEmpty()) {
                     _state.postValue(FavoriteViewState.ShowEmptyState)
                 } else {

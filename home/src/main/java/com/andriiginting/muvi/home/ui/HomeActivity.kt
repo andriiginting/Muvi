@@ -10,7 +10,6 @@ import com.andriiginting.muvi.home.R
 import com.andriiginting.muvi.home.di.MuviHomeInjector
 import com.andriiginting.navigation.DetailNavigator
 import com.andriiginting.navigation.FavoriteNavigator
-import com.andriiginting.uttils.loadAnimation
 import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible
 import com.andriiginting.uttils.setGridView
@@ -91,14 +90,17 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
             when (state) {
                 is HomeViewState.ShowLoading -> {
                     ivLoadingIndicator.apply {
+                        startShimmer()
                         makeVisible()
-                        loadAnimation("loading.json")
                     }
 
                     fabFavoriteMovie.makeGone()
                 }
                 is HomeViewState.HideLoading -> {
-                    ivLoadingIndicator.makeGone()
+                    ivLoadingIndicator.apply {
+                        stopShimmer()
+                        makeGone()
+                    }
                     fabFavoriteMovie.makeVisible()
                 }
                 is HomeViewState.GetMovieDataError -> {
