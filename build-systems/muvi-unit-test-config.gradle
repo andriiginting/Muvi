@@ -1,0 +1,75 @@
+apply plugin: 'jacoco'
+
+project.afterEvaluate {
+
+    jacoco {
+        toolVersion = "0.7.9"
+        reportsDir = file("$buildDir/build/reports")
+    }
+
+    def buildTypes = android.buildTypes.collect { it }
+
+    def included = [
+            '**/*ViewModel.*',
+            '**/*Presenter.*',
+            '**/*UseCase.*',
+            '**/*Mapper.*',
+            '**/*Repository.*'
+    ]
+
+    buildTypes.each { buildType ->
+        if (!buildType.testCoverageEnabled) {
+            return
+        }
+
+        def appPath = "/app"
+        def featurePath = "/features"
+
+        def buildTypeName = buildType.name.capitalize()
+
+        def listTestTasks = [] as Set
+        def listSourceDirectories = [] as Set
+        def listClassDirectories = [] as Set
+        def listExecutionData = [] as Set
+
+        rootDir.traverse(
+                nameFilter: ~/(?i).*test/,
+                maxDepth: 4
+        ) { path ->
+            if (path.toString().contains(appPath) || path.toString().contains(featurePath)) {
+                def typeTest = "test"
+                if (path.toString().contains("/src/test")) {
+                    if (path.toString().contains(featurePath)) {
+                        listTestTasks.add(":${path.toString() - rootDir - "${featurePath}/" - "/src/${typeTest}"}:test${buildTypeName}UnitTest")
+                    } else if (path.toString().contains(appPath)) {
+                        listTestTasks.add("${path.toString() - rootDir - "/src/${typeTest}"}:test${buildTypeName}UnitTest".replace("/", ":"))
+                    }
+                }
+
+                listExecutionData.add("${path.toString() - rootDir - "/src/${typeTest}"}/build/jacoco/test${buildTypeName}UnitTest.exec")
+                listSourceDirectories.add(path.toString() - typeTest + "main/kotlin")
+                listClassDirectories.add(fileTree(dir: "${path.toString() - "/src/${typeTest}"}/build/tmp/kotlin-classes/${buildType.name}", includes: included))
+            }
+        }
+
+        task "jacoco${buildTypeName}Report"(type: JacocoReport) {
+
+            group = "Reporting"
+            description = "Generate Jacoco coverage report for ${buildTypeName} build."
+
+            dependsOn = listTestTasks
+
+            reports {
+                html.enabled true
+                xml.enabled false
+            }
+
+            sourceDirectories.from = files(listSourceDirectories)
+
+            classDirectories.from = files(listClassDirectories)
+
+            executionData.from = fileTree(dir: "${rootDir}", includes: listExecutionData)
+
+        }
+    }
+}
