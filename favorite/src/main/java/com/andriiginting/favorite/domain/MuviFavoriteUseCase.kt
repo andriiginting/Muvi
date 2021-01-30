@@ -4,9 +4,7 @@ import com.andriiginting.common_database.MuviFavorites
 import com.andriiginting.core_network.MovieItem
 import com.andriiginting.favorite.data.MuviFavoriteRepository
 import com.andriiginting.uttils.flowableIo
-import com.andriiginting.uttils.singleIo
 import io.reactivex.Flowable
-import io.reactivex.Single
 import javax.inject.Inject
 
 interface MuviFavoriteUseCase {
@@ -19,15 +17,15 @@ class MuviFavoriteUseCaseImpl @Inject constructor(
 
     private fun mapToMovieModel(data: List<MuviFavorites>): List<MovieItem> {
         val list: MutableList<MovieItem> = mutableListOf()
-        data.forEach { data ->
+        data.forEach { movieItem ->
             val item = MovieItem(
-                id = data.movieFavoriteId,
-                movieId = data.movieFavoriteId,
-                posterPath = data.posterPath,
-                overview = data.overview,
-                title = data.movieTitle,
-                backdropPath = data.backdropPath,
-                releaseDate = data.releaseDate
+                id = movieItem.movieFavoriteId,
+                movieId = movieItem.movieFavoriteId,
+                posterPath = movieItem.posterPath,
+                overview = movieItem.overview,
+                title = movieItem.movieTitle,
+                backdropPath = movieItem.backdropPath,
+                releaseDate = movieItem.releaseDate
             )
             list.add(item)
         }

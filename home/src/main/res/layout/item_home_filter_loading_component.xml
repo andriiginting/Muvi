@@ -7,13 +7,14 @@
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/ivLoadingIndicator"
+        android:id="@+id/filterLoadingIndicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
         <LinearLayout
@@ -21,11 +22,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/muvi_default_loading_state" />
+            <View
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/rounded_shimmer" />
 
-            <include layout="@layout/muvi_default_loading_state" />
-
-            <include layout="@layout/muvi_default_loading_state" />
+            <include layout="@layout/item_filter_loading_layout" />
 
         </LinearLayout>
 

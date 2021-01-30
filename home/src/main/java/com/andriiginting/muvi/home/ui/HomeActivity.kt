@@ -14,7 +14,6 @@ import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible
 import com.andriiginting.uttils.setGridView
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.item_loading_component.*
 
 private const val HOME_COLUMN_SIZE = 2
 
@@ -28,6 +27,7 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
         setUpAdapter()
         setUpHome()
         setupObserver()
+        setupFilterView()
         setupFavoriteButton()
     }
 
@@ -46,11 +46,20 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
         }
     }
 
+    private fun setupFilterView() {
+        filterView.setOnFilterListener { position ->
+            viewModel.getFilteredData(position)
+        }
+    }
+
     private fun setupFavoriteButton() {
-        fabFavoriteMovie.setOnClickListener {
-            FavoriteNavigator
-                .getFavoritePageIntent()
-                .let(::startActivity)
+        fabFavoriteMovie.apply {
+            setOnClickListener {
+                FavoriteNavigator
+                    .getFavoritePageIntent()
+                    .let(::startActivity)
+            }
+            bringToFront()
         }
 
         rvMovies.addOnScrollListener(object: RecyclerView.OnScrollListener() {
@@ -95,20 +104,33 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
                     }
 
                     fabFavoriteMovie.makeGone()
+                    rvMovies.makeGone()
+                    layoutEmpty.hideEmptyScreen()
                 }
                 is HomeViewState.HideLoading -> {
                     ivLoadingIndicator.apply {
                         stopShimmer()
                         makeGone()
                     }
+
                     fabFavoriteMovie.makeVisible()
+                    rvMovies.makeVisible()
                 }
                 is HomeViewState.GetMovieDataError -> {
                     layoutError.showErrorScreen()
                 }
                 is HomeViewState.GetMovieData -> {
-                    homeAdapter.safeAddAll(state.data.resultsIntent)
+                    homeAdapter.apply {
+                        clear()
+                        safeAddAll(state.data.resultsIntent)
+                    }
                     layoutError.hideErrorScreen()
+                    layoutEmpty.hideEmptyScreen()
+                }
+                is HomeViewState.EmptyScreen -> {
+                    homeAdapter.clear()
+                    rvMovies.makeGone()
+                    layoutEmpty.showEmptyScreen()
                 }
             }
         })

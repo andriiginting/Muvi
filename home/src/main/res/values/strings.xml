@@ -1,3 +1,4 @@
 <resources>
     <string name="error_description">Something Went Wrong!</string>
+    <string name="home_filter_title">See what we have!</string>
 </resources>

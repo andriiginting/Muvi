@@ -9,6 +9,18 @@ import retrofit2.http.GET
 interface MuviHomeService {
     @GET("movie/popular")
     fun getPopularMovies(): Single<MovieResponse>
+
+    @GET("movie/latest")
+    fun getLatestMovies(): Single<MovieResponse>
+
+    @GET("movie/now_playing")
+    fun getNowPlayingMovies(): Single<MovieResponse>
+
+    @GET("movie/top_rated")
+    fun getTopRatedMovies(): Single<MovieResponse>
+
+    @GET("movie/upcoming")
+    fun getUpcomingMovies(): Single<MovieResponse>
 }
 
 @Parcelize

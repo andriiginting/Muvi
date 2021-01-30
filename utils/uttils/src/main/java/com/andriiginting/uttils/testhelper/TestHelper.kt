@@ -42,3 +42,8 @@ fun getMovieDummyResponse() = MovieItem(
     backdropPath = "/AoT2YrJUJlg5vKE3iMOLvHlTd3m.jpg",
     releaseDate = "2016-07-27"
 )
+
+fun getEmptyMovieResponse(): MovieResponse {
+    val data = emptyList<MovieItem>()
+    return MovieResponse(data)
+}

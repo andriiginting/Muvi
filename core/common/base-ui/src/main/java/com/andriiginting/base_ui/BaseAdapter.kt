@@ -63,6 +63,10 @@ open class MuviBaseAdapter<T, VH : RecyclerView.ViewHolder>(
         notifyDataSetChanged()
     }
 
+    override fun add(list: List<T>) {
+        clear()
+        items.addAll(list)
+    }
 }
 
 interface AdapterObserver<T> {
@@ -72,6 +76,8 @@ interface AdapterObserver<T> {
     fun safeAddAll(collection: Collection<T>?)
 
     fun safeClearAndAddAll(collection: Collection<T>)
+
+    fun add(list: List<T>)
 
     fun clear()
 }

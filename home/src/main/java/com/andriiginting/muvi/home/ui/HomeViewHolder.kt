@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.andriiginting.muvi.home.BuildConfig
 import com.andriiginting.muvi.home.R
-import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_home_component.view.ivPoster
+import com.andriiginting.uttils.loadImage
+import kotlinx.android.synthetic.main.item_home_component.view.*
 
 class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     companion object {
@@ -21,16 +20,11 @@ class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
     fun bind(url: String) {
-        Glide.with(itemView.context)
-            .load("${BuildConfig.IMAGE_BASE_URL}$url")
-            .fallback(R.color.material_on_primary_disabled)
-            .error(R.color.material_on_primary_disabled)
-            .dontAnimate()
-            .into(itemView.ivPoster)
+        itemView.ivPoster.loadImage(url)
     }
 
     fun setPosterAction(action: (position: Int) -> Unit) {
-        itemView.ivPoster.setOnClickListener {
+        itemView.setOnClickListener {
             action.invoke(adapterPosition)
         }
     }
