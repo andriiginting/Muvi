@@ -1,5 +1,7 @@
 Muvi :construction_worker::hammer:
-===== 
+=====
+[![Build Status](https://travis-ci.com/andriiginting/Muvi.svg?branch=master)](https://travis-ci.com/andriiginting/Muvi)
+ 
 Very simple project to show collection of Movie from [MovieDb](https://developers.themoviedb.org) with minimalist design.
 
 Main Feature
