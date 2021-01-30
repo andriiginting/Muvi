@@ -1,6 +1,7 @@
 sudo: false
 language: android
 jdk: oraclejdk8
+
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -12,12 +13,13 @@ cache:
 env:
   global:
     - ANDROID_API_LEVEL=25
-    - EMULATOR_API_LEVEL=21
     - ANDROID_BUILD_TOOLS_VERSION=25.0.2
-    - ANDROID_ABI=google_apis/armeabi-v7a
-    - ADB_INSTALL_TIMEOUT=20
 
 android:
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
   components:
     - tools
     - platform-tools
@@ -31,12 +33,14 @@ android:
     - addon-google_apis-google-$EMULATOR_API_LEVEL
     - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
     - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
-
+before_script:
+  - mkdir -p "$ANDROID_HOME/licenses"
+  - cp ./google-licenses/* "$ANDROID_HOME/licenses/"
 script:
   - ./gradlew clean app:assembleDebug
   - ./gradlew clean testDebug
 
-  branches:
-    only:
-      - feature
-      - master
+branches:
+  only:
+    - feature
+    - master
