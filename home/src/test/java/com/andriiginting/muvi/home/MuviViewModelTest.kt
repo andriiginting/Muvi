@@ -309,6 +309,34 @@ class MuviViewModelTest {
         clearInvocations(useCase, observer)
     }
 
+    @Test
+    fun `when home banner movie and success should return now playing movie`() {
+        whenever(useCase.getHomeBanner())
+            .thenReturn(Single.just(getHomeBannerData()))
+
+        viewModel.getHomeBanner()
+
+        useCase.getHomeBanner().test()
+            .apply {
+                assertNoErrors()
+                assertComplete()
+                assertValue {
+                    it == getHomeBannerData()
+                }
+            }
+
+        verify(useCase, atLeastOnce()).getHomeBanner()
+        verify(observer, atLeastOnce()).onChanged(HomeViewState.ShowLoading)
+        verify(observer, atLeastOnce()).onChanged(HomeViewState.HideLoading)
+        verify(
+            observer,
+            atLeastOnce()
+        ).onChanged(HomeViewState.GetHomeBannerData(getHomeBannerData()))
+
+        verifyNoMoreInteractions(useCase, observer)
+        clearInvocations(useCase, observer)
+    }
+
     @After
     fun tearDown() {
         TrampolineSchedulerRX.tearDown()

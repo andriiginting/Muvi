@@ -10,10 +10,12 @@ import com.andriiginting.muvi.home.R
 import com.andriiginting.muvi.home.di.MuviHomeInjector
 import com.andriiginting.navigation.DetailNavigator
 import com.andriiginting.navigation.FavoriteNavigator
+import com.andriiginting.uttils.loadImage
 import com.andriiginting.uttils.makeGone
 import com.andriiginting.uttils.makeVisible
 import com.andriiginting.uttils.setGridView
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.item_home_banner_component.*
 
 private const val HOME_COLUMN_SIZE = 2
 
@@ -39,6 +41,11 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
 
     override fun setObserver(): FragmentActivity = this
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getHomeBanner()
+    }
+
     private fun setUpHome() {
         rvMovies.apply {
             setGridView(HOME_COLUMN_SIZE)
@@ -62,7 +69,7 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
             bringToFront()
         }
 
-        rvMovies.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        rvMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0 || dy < 0) {
@@ -115,15 +122,13 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
 
                     fabFavoriteMovie.makeVisible()
                     rvMovies.makeVisible()
+                    cardBannerView.makeVisible()
                 }
                 is HomeViewState.GetMovieDataError -> {
                     layoutError.showErrorScreen()
                 }
                 is HomeViewState.GetMovieData -> {
-                    homeAdapter.apply {
-                        clear()
-                        safeAddAll(state.data.resultsIntent)
-                    }
+                    homeAdapter.safeAddAll(state.data.resultsIntent)
                     layoutError.hideErrorScreen()
                     layoutEmpty.hideEmptyScreen()
                 }
@@ -131,6 +136,20 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
                     homeAdapter.clear()
                     rvMovies.makeGone()
                     layoutEmpty.showEmptyScreen()
+                }
+                is HomeViewState.BannerError -> {
+                    cardBannerView.makeGone()
+                }
+                is HomeViewState.GetHomeBannerData -> {
+                    tvMovieBannerTitle.text = state.data.movie.title
+                    ivMovieBanner.apply {
+                        loadImage(state.data.movie.backdropPath.orEmpty())
+                        setOnClickListener {
+                            DetailNavigator
+                                .getDetailPageIntent(state.data.movie.id)
+                                .also(::startActivity)
+                        }
+                    }
                 }
             }
         })

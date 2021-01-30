@@ -1,5 +1,6 @@
 package com.andriiginting.muvi.home.domain
 
+import com.andriiginting.core_network.HomeBannerData
 import com.andriiginting.core_network.MovieResponse
 import com.andriiginting.muvi.home.data.MuviHomeRepository
 import com.andriiginting.uttils.singleIo
@@ -11,6 +12,7 @@ interface MuviHomeUseCase {
     fun getLatestMovies(): Single<MovieResponse>
     fun getNowPlayingMovies(): Single<MovieResponse>
     fun getTopRatedMovies(): Single<MovieResponse>
+    fun getHomeBanner(): Single<HomeBannerData>
     fun getUpcomingMovies(): Single<MovieResponse>
 }
 
@@ -35,6 +37,12 @@ class MuviHomeUseCaseImpl @Inject constructor(
 
     override fun getTopRatedMovies(): Single<MovieResponse> {
         return repository.getTopRatedMovies()
+            .compose(singleIo())
+    }
+
+    override fun getHomeBanner(): Single<HomeBannerData> {
+        return repository.getNowPlayingMovies()
+            .map { HomeBannerData(it.resultsIntent.random()) }
             .compose(singleIo())
     }
 

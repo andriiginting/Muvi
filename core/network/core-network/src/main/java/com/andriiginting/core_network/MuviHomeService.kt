@@ -50,3 +50,6 @@ data class DetailsMovieData(
     val similarMovies: List<MovieItem> = emptyList(),
     val movie: MovieItem
 ):Parcelable
+
+@Parcelize
+data class HomeBannerData(val movie: MovieItem):Parcelable

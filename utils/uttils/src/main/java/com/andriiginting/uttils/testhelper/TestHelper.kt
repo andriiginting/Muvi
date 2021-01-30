@@ -1,5 +1,6 @@
 package com.andriiginting.uttils.testhelper
 
+import com.andriiginting.core_network.HomeBannerData
 import com.andriiginting.core_network.MovieItem
 import com.andriiginting.core_network.MovieResponse
 import com.google.gson.Gson
@@ -42,6 +43,10 @@ fun getMovieDummyResponse() = MovieItem(
     backdropPath = "/AoT2YrJUJlg5vKE3iMOLvHlTd3m.jpg",
     releaseDate = "2016-07-27"
 )
+
+fun getHomeBannerData(): HomeBannerData {
+    return HomeBannerData(getMovieDummyResponse())
+}
 
 fun getEmptyMovieResponse(): MovieResponse {
     val data = emptyList<MovieItem>()

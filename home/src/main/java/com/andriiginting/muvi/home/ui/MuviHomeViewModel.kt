@@ -1,6 +1,7 @@
 package com.andriiginting.muvi.home.ui
 
 import com.andriiginting.base_ui.MuviBaseViewModel
+import com.andriiginting.core_network.HomeBannerData
 import com.andriiginting.core_network.MovieResponse
 import com.andriiginting.muvi.home.domain.MuviHomeUseCase
 import javax.inject.Inject
@@ -29,6 +30,17 @@ class MuviHomeViewModel @Inject constructor(
             UPCOMING_MOVIE_DATA_POSITION -> getUpcomingMovieData()
             else -> getMovieData()
         }
+    }
+
+    fun getHomeBanner() {
+        useCase.getHomeBanner()
+            .doOnSubscribe { _state.value = HomeViewState.ShowLoading }
+            .doAfterTerminate { _state.value = HomeViewState.HideLoading }
+            .subscribe({ data ->
+                _state.postValue(HomeViewState.GetHomeBannerData(data))
+            }, {
+                _state.value = HomeViewState.BannerError
+            }).let(addDisposable::add)
     }
 
     private fun getLatestMovieData() {
@@ -96,7 +108,9 @@ sealed class HomeViewState {
     object ShowLoading : HomeViewState()
     object HideLoading : HomeViewState()
     object EmptyScreen: HomeViewState()
+    object BannerError: HomeViewState()
 
     data class GetMovieData(val data: MovieResponse) : HomeViewState()
+    data class GetHomeBannerData(val data: HomeBannerData) : HomeViewState()
     data class GetMovieDataError(val error: Throwable) : HomeViewState()
 }

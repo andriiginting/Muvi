@@ -48,6 +48,111 @@ class MuviHomeUseCaseTest {
         verify(repository, atLeastOnce()).getPopularMovie()
     }
 
+    @Test
+    fun `should return latest movie response when call homerepository`() {
+        whenever(repository.getLatestMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        useCase.getLatestMovies()
+
+        repository.getLatestMovies().test().apply {
+            assertComplete()
+            assertNoErrors()
+            assertValue {
+                it == load(
+                    MovieResponse::class.java,
+                    "movie_response.json"
+                )
+            }
+        }
+
+        verify(repository, atLeastOnce()).getLatestMovies()
+    }
+
+    @Test
+    fun `should return now playing movie response when call home repository`() {
+        whenever(repository.getNowPlayingMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        useCase.getNowPlayingMovies()
+
+        repository.getNowPlayingMovies().test().apply {
+            assertComplete()
+            assertNoErrors()
+            assertValue {
+                it == load(
+                    MovieResponse::class.java,
+                    "movie_response.json"
+                )
+            }
+        }
+
+        verify(repository, atLeastOnce()).getNowPlayingMovies()
+    }
+
+    @Test
+    fun `should return top rated movie response when call home repository`() {
+        whenever(repository.getTopRatedMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        useCase.getTopRatedMovies()
+
+        repository.getTopRatedMovies().test().apply {
+            assertComplete()
+            assertNoErrors()
+            assertValue {
+                it == load(
+                    MovieResponse::class.java,
+                    "movie_response.json"
+                )
+            }
+        }
+
+        verify(repository, atLeastOnce()).getTopRatedMovies()
+    }
+
+    @Test
+    fun `should return top rated banner movie response when call home repository`() {
+        whenever(repository.getNowPlayingMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        useCase.getHomeBanner()
+
+        repository.getNowPlayingMovies().test().apply {
+            assertComplete()
+            assertNoErrors()
+            assertValue {
+                it == load(
+                    MovieResponse::class.java,
+                    "movie_response.json"
+                )
+            }
+        }
+
+        verify(repository, atLeastOnce()).getNowPlayingMovies()
+    }
+
+    @Test
+    fun `should return upcoming movie response when call home repository`() {
+        whenever(repository.getUpcomingMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        useCase.getUpcomingMovies()
+
+        repository.getUpcomingMovies().test().apply {
+            assertComplete()
+            assertNoErrors()
+            assertValue {
+                it == load(
+                    MovieResponse::class.java,
+                    "movie_response.json"
+                )
+            }
+        }
+
+        verify(repository, atLeastOnce()).getUpcomingMovies()
+    }
+
 
     @After
     fun tearDown() {
