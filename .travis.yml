@@ -1,0 +1,16 @@
+language: android
+jdk: oraclejdk8
+
+android:
+  components:
+    - android-28
+    - build-tools-27.0.3
+
+env:
+  - ANDROID_EMULATOR_API_LEVEL=21
+  global:
+    - ADB_INSTALL_TIMEOUT=8
+
+script:
+  - ./gradlew clean app:assembleDebug
+  - ./gradlew clean testDebug
