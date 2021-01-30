@@ -14,3 +14,8 @@ env:
 script:
   - ./gradlew clean app:assembleDebug
   - ./gradlew clean testDebug
+
+  branches:
+    only:
+      - feature
+      - master
