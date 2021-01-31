@@ -13,6 +13,16 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core/common/base-ui" />
+            <option value="$PROJECT_DIR$/core/common/common-database" />
+            <option value="$PROJECT_DIR$/core/common/common-di" />
+            <option value="$PROJECT_DIR$/core/common/common-widget" />
+            <option value="$PROJECT_DIR$/core/common/navigation" />
+            <option value="$PROJECT_DIR$/core/network/core-network" />
+            <option value="$PROJECT_DIR$/features/detail" />
+            <option value="$PROJECT_DIR$/features/favorite" />
+            <option value="$PROJECT_DIR$/features/home" />
+            <option value="$PROJECT_DIR$/utils/uttils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

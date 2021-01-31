@@ -1,0 +1,84 @@
+apply plugin: 'jacoco'
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+tasks.withType(Test) { jacoco.includeNoLocationClasses = true }
+
+project.afterEvaluate {
+
+    (android.hasProperty('applicationVariants')
+            ? android.'applicationVariants'
+            : android.'libraryVariants').all { variant ->
+        def variantName = variant.name
+        def unitTestTask = "test${variantName.capitalize()}UnitTest"
+
+        tasks.create(name: "${unitTestTask}Report", type: JacocoReport, dependsOn: [
+                ":home:testDebugUnitTest",
+                ":detail:testDebugUnitTest",
+                ":favorite:testDebugUnitTest",
+        ]) {
+            group = "Reporting"
+            description = "Generate Jacoco coverage reports for the ${variantName.capitalize()} build"
+
+            reports {
+                html.enabled = true
+                xml.enabled = false
+                csv.enabled = false
+            }
+
+            def fileFilter = [
+                    '**/R.class',
+                    '**/R$*.class',
+                    '**/BuildConfig.*',
+                    '**/Manifest*.*',
+                    '**/*Test*.*',
+                    '**/di/*',
+                    '**/*MapperImpl*.*',
+                    '**/*$ViewInjector*.*',
+                    '**/*$ViewBinder*.*',
+                    '**/BuildConfig.*',
+                    '**/*Component*.*',
+                    '**/*BR*.*',
+                    '**/Manifest*.*',
+                    '**/*$Lambda$*.*',
+                    '**/*Companion*.*',
+                    '**/*Module.*',
+                    '**/*Dagger*.*',
+                    '**/*MembersInjector*.*',
+                    '**/*_Factory*.*',
+                    '**/*_Provide*Factory*.*',
+                    '**/*Extension.*',
+                    '**/*View*.*',
+                    '**/*ViewHolder*.*',
+                    '**/*Adapter*.*',
+                    '**/*Activity*.*',
+                    '**/*$Result.*',
+                    '**/*$Result$*.*',
+                    '**/*Args*.*'
+            ]
+
+            classDirectories.setFrom(files([
+                    fileTree(dir: "$project.rootDir/features/home/build/tmp/kotlin-classes/debug", excludes: fileFilter),
+                    fileTree(dir: "$project.rootDir/features/detail/build/tmp/kotlin-classes/debug", excludes: fileFilter),
+                    fileTree(dir: "$project.rootDir/features/favorite/build/tmp/kotlin-classes/debug", excludes: fileFilter),
+            ]))
+
+            def coverageSourceDirs = [
+                    "$project.rootDir/features/home/src/main/java",
+                    "$project.rootDir/features/detail/src/main/java",
+                    "$project.rootDir/features/favorite/src/main/java"
+            ]
+            additionalSourceDirs.setFrom(files(coverageSourceDirs))
+            sourceDirectories.setFrom(files(coverageSourceDirs))
+
+            executionData(files([
+                    "$project.rootDir/features/home/build/jacoco/testDebugUnitTest.exec",
+                    "$project.rootDir/features/detail/build/jacoco/testDebugUnitTest.exec",
+                    "$project.rootDir/features/favorite/build/jacoco/testDebugUnitTest.exec"
+            ]))
+        }
+    }
+}

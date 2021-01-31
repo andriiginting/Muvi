@@ -8,10 +8,10 @@ include ':common-widget'
 project(':common-widget').projectDir = new File("./core/common/common-widget")
 
 include ':detail'
-project(':detail').projectDir = new File("./detail")
+project(':detail').projectDir = new File("./features/detail")
 
 include ':favorite'
-project(':favorite').projectDir = new File("./favorite")
+project(':favorite').projectDir = new File("./features/favorite")
 
 include ':base-ui'
 project(':base-ui').projectDir = new File("./core/common/base-ui")
@@ -26,7 +26,7 @@ include ':core-network'
 project(':core-network').projectDir = new File("./core/network/core-network")
 
 include ':home'
-project(':home').projectDir = new File("./home")
+project(':home').projectDir = new File("./features/home")
 
 include ':app'
 rootProject.name = "Muvi"

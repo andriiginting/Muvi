@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 30
@@ -47,6 +46,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
+apply from: "$rootDir/build-systems/muvi-unit-test-config.gradle"
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"

@@ -1,6 +1,7 @@
 Muvi :construction_worker::hammer:
 =====
 [![Build Status](https://travis-ci.com/andriiginting/Muvi.svg?branch=master)](https://travis-ci.com/andriiginting/Muvi)
+[![codecov](https://codecov.io/gh/andriiginting/Muvi/branch/master/graph/badge.svg?token=JGB5AOHJRF)](https://codecov.io/gh/andriiginting/Muvi)
  
 Very simple project to show collection of Movie from [MovieDb](https://developers.themoviedb.org) with minimalist design.
 
@@ -32,5 +33,3 @@ How to use it?
 - You can run the Unit test by using `./gradlew clean test`
 
 *Clean Architecture will not be appropriate for every project, so it is down to you to decide whether or not it fits your needs*
-
- 
