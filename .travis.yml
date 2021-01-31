@@ -46,6 +46,8 @@ before_script:
 script:
   - ./gradlew clean app:assembleDebug
   - ./gradlew clean testDebugUnitTestReport
+  - mv app/build/reports/jacoco/testDebugUnitTestReport app/build/reports/jacoco/jacocoTestDebugUnitTestReport
+  - mv app/build/reports/jacoco/jacocoTestDebugUnitTestReport/testDebugUnitTestReport.xml app/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t "165ae880-9a18-4283-956b-09996f4f8a24"
