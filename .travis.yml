@@ -27,8 +27,8 @@ android:
 
 before_install:
   - touch $HOME/.android/repositories.cfg
-  - yes | sdkmanager "platforms;android-29"
-  - yes | sdkmanager "build-tools;29.0.3"
+  - yes | sdkmanager "platforms;android-30"
+  - yes | sdkmanager "build-tools;30.0.2"
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -45,7 +45,12 @@ before_script:
 
 script:
   - ./gradlew clean app:assembleDebug
-  - ./gradlew clean testDebugUnitTest
+  - ./gradlew check connectedCheck
+  - ./gradlew clean testDebugUnitTestReport
+  - mv app/build/reports/jacoco/testDebugUnitTestReport app/build/reports/jacoco/jacocoTestDebugUnitTestReport
+  - mv app/build/reports/jacoco/testDebugUnitTestReport/html/index.xml app/build/reports/jacoco/jacocoTestDebugUnitTestReport/jacocoTestDebugUnitTestReport.xml
+  - bash <(curl -s https://codecov.io/bash)
+
 
 branches:
   only:

@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: "$rootDir/build-systems/muvi-unit-test-config.gradle"
 
 android {
     compileSdkVersion 30

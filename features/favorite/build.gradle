@@ -42,6 +42,8 @@ android {
     }
 }
 
+apply from: "$rootDir/build-systems/muvi-unit-test-config.gradle"
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(":app")
