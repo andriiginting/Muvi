@@ -45,19 +45,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    testOptions {
-        unitTests.all {
-            jacoco {
-                useJUnitPlatform {
-                    includeEngines 'junit-jupiter', 'junit-vintage'
-                }
-            }
-        }
-        unitTests.returnDefaultValues = true
-        animationsDisabled = true
-    }
-
 }
 
 apply from: "$rootDir/build-systems/muvi-unit-test-config.gradle"
