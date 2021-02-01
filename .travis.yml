@@ -43,9 +43,18 @@ cache:
 before_script:
   - chmod +x gradlew
 
-script:
-  - ./gradlew clean app:assembleDebug
-  - ./gradlew clean testDebugUnitTestReport
+jobs:
+  include:
+    - stage: test
+      name: "unit_test"
+      script: ./gradlew clean testDebugUnitTestReport
+    - stage: build
+      name: "build_debug"
+      script: ./gradlew clean app:assembleDebug
+
+stages:
+  - test
+  - build
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
