@@ -49,7 +49,7 @@ abstract class MuviBaseActivity<V : ViewModel> : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(
                 applicationContext,
-                R.color.design_default_color_on_background
+                R.color.colorPrimaryDark
             )
         }
     }

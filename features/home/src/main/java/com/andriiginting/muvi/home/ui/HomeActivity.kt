@@ -1,5 +1,7 @@
 package com.andriiginting.muvi.home.ui
 
+import android.view.Menu
+import android.view.MenuItem
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +33,7 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
         setupObserver()
         setupFilterView()
         setupFavoriteButton()
+        setToolbar()
     }
 
     override fun setData() = viewModel.getMovieData()
@@ -44,6 +47,25 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
     override fun onResume() {
         super.onResume()
         viewModel.getHomeBanner()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.muvi_home_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.iconSearch -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setToolbar() {
+        setSupportActionBar(toolbar)
+        toolbar.showOverflowMenu()
     }
 
     private fun setUpHome() {
