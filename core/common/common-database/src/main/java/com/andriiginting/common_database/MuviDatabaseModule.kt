@@ -16,7 +16,7 @@ class MuviDatabaseModule {
     @Singleton
     fun provideDatabase(context: Context): MuviDatabase {
         val factory = SupportFactory(
-            SQLiteDatabase.getBytes("FAVORITE_DATABASE_NAME".toCharArray())
+            SQLiteDatabase.getBytes(FAVORITE_DATABASE_NAME.toCharArray())
         )
         return Room
             .databaseBuilder(context, MuviDatabase::class.java, FAVORITE_DATABASE_NAME)
