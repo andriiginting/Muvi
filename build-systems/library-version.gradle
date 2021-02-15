@@ -69,7 +69,9 @@ ext {
             shimmer                  : 'com.facebook.shimmer:shimmer:0.5.0',
             leakCanary               : 'com.squareup.leakcanary:leakcanary-android:2.6',
             rxRelay                  : 'com.jakewharton.rxrelay2:rxrelay:2.0.0',
-            RxBinding                : 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
+            RxBinding                : 'com.jakewharton.rxbinding3:rxbinding:3.0.0',
+            sqlChiper                : "net.zetetic:android-database-sqlcipher:4.4.0",
+            sqlKTX                   : "androidx.sqlite:sqlite-ktx:2.1.0"
     ]
 
     supportDependencies = [
