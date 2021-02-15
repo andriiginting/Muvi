@@ -1,7 +1,5 @@
 package com.andriiginting.muvi.home.ui
 
-import android.view.Menu
-import android.view.MenuItem
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +31,6 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
         setupObserver()
         setupFilterView()
         setupFavoriteButton()
-        setToolbar()
     }
 
     override fun setData() = viewModel.getMovieData()
@@ -47,25 +44,6 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
     override fun onResume() {
         super.onResume()
         viewModel.getHomeBanner()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.muvi_home_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.iconSearch -> {
-
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun setToolbar() {
-        setSupportActionBar(toolbar)
-        toolbar.showOverflowMenu()
     }
 
     private fun setUpHome() {
@@ -124,6 +102,25 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
     }
 
     private fun setupObserver() {
+        viewModel.bannerState.observe(this, Observer { state ->
+            when (state) {
+                is HomeBannerState.BannerError -> {
+                    cardBannerView.makeGone()
+                }
+                is HomeBannerState.GetHomeBannerData -> {
+                    tvMovieBannerTitle.text = state.data.movie.title
+                    ivMovieBanner.apply {
+                        loadImage(state.data.movie.backdropPath.orEmpty())
+                        setOnClickListener {
+                            DetailNavigator
+                                .getDetailPageIntent(state.data.movie.id)
+                                .also(::startActivity)
+                        }
+                    }
+                }
+            }
+        })
+
         viewModel.state.observe(this, Observer { state ->
             when (state) {
                 is HomeViewState.ShowLoading -> {
@@ -158,20 +155,6 @@ class HomeActivity : MuviBaseActivity<MuviHomeViewModel>() {
                     homeAdapter.clear()
                     rvMovies.makeGone()
                     layoutEmpty.showEmptyScreen()
-                }
-                is HomeViewState.BannerError -> {
-                    cardBannerView.makeGone()
-                }
-                is HomeViewState.GetHomeBannerData -> {
-                    tvMovieBannerTitle.text = state.data.movie.title
-                    ivMovieBanner.apply {
-                        loadImage(state.data.movie.backdropPath.orEmpty())
-                        setOnClickListener {
-                            DetailNavigator
-                                .getDetailPageIntent(state.data.movie.id)
-                                .also(::startActivity)
-                        }
-                    }
                 }
             }
         })

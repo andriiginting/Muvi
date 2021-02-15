@@ -7,10 +7,13 @@ import com.airbnb.deeplinkdispatch.DeepLinkHandler
 import com.airbnb.deeplinkdispatch.Parser
 import com.andriiginting.muvi.detail.MuviDetailDeepLinkModule
 import com.andriiginting.muvi.detail.MuviDetailDeepLinkModuleLoader
+import com.andriiginting.search.MuviSearchDeeplinkModule
+import com.andriiginting.search.MuviSearchDeeplinkModuleLoader
 
 @DeepLinkHandler(
     AppDeeplinkModule::class,
-    MuviDetailDeepLinkModule::class
+    MuviDetailDeepLinkModule::class,
+    MuviSearchDeeplinkModule::class
 )
 class DeeplinkHandlerActivity : AppCompatActivity() {
 
@@ -20,6 +23,7 @@ class DeeplinkHandlerActivity : AppCompatActivity() {
             listOfNotNull(
                 AppDeeplinkModuleLoader(),
                 MuviDetailDeepLinkModuleLoader(),
+                MuviSearchDeeplinkModuleLoader(),
                 loadDeepLinkLoader(DYNAMIC_FEATURE_FAVORITE_MODULE)
             )
         ).dispatchFrom(this)

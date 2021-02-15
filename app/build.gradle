@@ -63,6 +63,7 @@ dependencies {
     implementation project(":core-network")
     implementation project(":home")
     implementation project(":detail")
+    implementation project(":search")
     implementation libraries.dagger
     kapt libraries.daggerCompiler
     implementation libraries.lottie

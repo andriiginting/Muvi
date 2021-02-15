@@ -1,8 +1,8 @@
 package com.andriiginting.uttils
 
-import io.reactivex.CompletableTransformer
 import io.reactivex.FlowableTransformer
 import io.reactivex.MaybeTransformer
+import io.reactivex.ObservableTransformer
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -14,8 +14,8 @@ fun <T> singleIo(): SingleTransformer<T, T> {
     }
 }
 
-fun completeIo(): CompletableTransformer {
-    return CompletableTransformer { upstream ->
+fun <T> observableIo(): ObservableTransformer<T, T> {
+    return ObservableTransformer { upstream ->
         upstream.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

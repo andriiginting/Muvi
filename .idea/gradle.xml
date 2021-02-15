@@ -22,6 +22,7 @@
             <option value="$PROJECT_DIR$/features/detail" />
             <option value="$PROJECT_DIR$/features/favorite" />
             <option value="$PROJECT_DIR$/features/home" />
+            <option value="$PROJECT_DIR$/features/search" />
             <option value="$PROJECT_DIR$/utils/uttils" />
           </set>
         </option>

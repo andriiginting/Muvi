@@ -2,6 +2,7 @@ package com.andriiginting.base_ui
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -49,8 +50,17 @@ abstract class MuviBaseActivity<V : ViewModel> : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(
                 applicationContext,
-                R.color.colorPrimaryDark
+                android.R.color.white
             )
+        }
+
+        showDarkStatusBarIcons()
+    }
+
+    private fun showDarkStatusBarIcons() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 }

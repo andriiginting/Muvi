@@ -34,6 +34,7 @@
 
                 <data android:scheme="muvi" />
                 <data android:host="detail" />
+                <data android:host="search" />
                 <data android:host="favorite" />
             </intent-filter>
         </activity>

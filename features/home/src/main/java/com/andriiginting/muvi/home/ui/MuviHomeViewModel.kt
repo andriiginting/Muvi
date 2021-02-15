@@ -1,5 +1,7 @@
 package com.andriiginting.muvi.home.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.andriiginting.base_ui.MuviBaseViewModel
 import com.andriiginting.core_network.HomeBannerData
 import com.andriiginting.core_network.MovieResponse
@@ -9,6 +11,10 @@ import javax.inject.Inject
 class MuviHomeViewModel @Inject constructor(
     private val useCase: MuviHomeUseCase
 ) : MuviBaseViewModel<HomeViewState>() {
+
+    private val _bannerState: MutableLiveData<HomeBannerState> = MutableLiveData()
+    val bannerState: LiveData<HomeBannerState>
+        get() = _bannerState
 
     fun getMovieData() {
         useCase.getAllMovies()
@@ -34,12 +40,10 @@ class MuviHomeViewModel @Inject constructor(
 
     fun getHomeBanner() {
         useCase.getHomeBanner()
-            .doOnSubscribe { _state.value = HomeViewState.ShowLoading }
-            .doAfterTerminate { _state.value = HomeViewState.HideLoading }
             .subscribe({ data ->
-                _state.postValue(HomeViewState.GetHomeBannerData(data))
+                _bannerState.postValue(HomeBannerState.GetHomeBannerData(data))
             }, {
-                _state.value = HomeViewState.BannerError
+                _bannerState.value = HomeBannerState.BannerError
             }).let(addDisposable::add)
     }
 
@@ -104,13 +108,16 @@ class MuviHomeViewModel @Inject constructor(
     }
 }
 
+sealed class HomeBannerState {
+    object BannerError: HomeBannerState()
+    data class GetHomeBannerData(val data: HomeBannerData) : HomeBannerState()
+}
+
 sealed class HomeViewState {
     object ShowLoading : HomeViewState()
     object HideLoading : HomeViewState()
     object EmptyScreen: HomeViewState()
-    object BannerError: HomeViewState()
 
     data class GetMovieData(val data: MovieResponse) : HomeViewState()
-    data class GetHomeBannerData(val data: HomeBannerData) : HomeViewState()
     data class GetMovieDataError(val error: Throwable) : HomeViewState()
 }

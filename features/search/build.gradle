@@ -1,0 +1,51 @@
+apply from: "$rootDir/build-systems/apps-library.gradle"
+apply plugin: 'kotlin-android'
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(":core-network")
+    implementation project(":common-di")
+    implementation project(":common-database")
+    implementation project(":common-widget")
+    implementation project(":base-ui")
+    implementation project(":navigation")
+    implementation project(":uttils")
+
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.design
+    implementation supportDependencies.recyclerView
+    implementation supportDependencies.support
+    implementation supportDependencies.constraintLayout
+
+    implementation libraries.kotlinCore
+    implementation libraries.dagger
+    implementation libraries.timber
+    kapt libraries.daggerCompiler
+    implementation libraries.javaxInject
+    implementation libraries.javaxAnnotation
+    implementation libraries.rx2Java
+    implementation libraries.rx2Android
+    implementation libraries.gson
+    implementation libraries.retrofit2
+    implementation libraries.retrofit2Gson
+    implementation libraries.retrofit2Rx2
+    implementation libraries.rxRelay
+    implementation libraries.okhttp3
+    implementation libraries.glide
+    implementation libraries.RxBinding
+    implementation libraries.deeplinkDispatch
+    kapt libraries.deeplinkDispatchProcessor
+
+    testImplementation testLibraries.junit
+    testImplementation testLibraries.junitRunner
+    testImplementation testLibraries.mockitoCore
+    testImplementation testLibraries.mockitoKotlin
+    testImplementation testLibraries.mockitoInline
+    testImplementation testLibraries.coreTesting
+    testImplementation testSupportDependencies.core
+    testImplementation testSupportDependencies.extRunner
+
+    androidTestImplementation testLibraries.mockitoAndroid
+    androidTestImplementation testSupportDependencies.espressoCore
+    androidTestImplementation testSupportDependencies.extRunner
+}
