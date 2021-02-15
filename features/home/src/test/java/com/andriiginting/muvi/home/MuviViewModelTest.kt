@@ -3,6 +3,7 @@ package com.andriiginting.muvi.home
 import androidx.lifecycle.Observer
 import com.andriiginting.core_network.MovieResponse
 import com.andriiginting.muvi.home.domain.MuviHomeUseCase
+import com.andriiginting.muvi.home.ui.HomeBannerState
 import com.andriiginting.muvi.home.ui.HomeViewState
 import com.andriiginting.muvi.home.ui.MuviHomeViewModel
 import com.andriiginting.uttils.testhelper.*
@@ -17,6 +18,7 @@ class MuviViewModelTest {
     private val useCase: MuviHomeUseCase = mock()
     private lateinit var viewModel: MuviHomeViewModel
     private val observer = mock<Observer<HomeViewState>>()
+    private val bannerObserver = mock<Observer<HomeBannerState>>()
 
     @Before
     fun setUp() {
@@ -25,6 +27,7 @@ class MuviViewModelTest {
 
         TrampolineSchedulerRX.start()
         InstantRuleExecution.start()
+        viewModel.state.observeForever(observer)
         viewModel.state.observeForever(observer)
     }
 
@@ -326,15 +329,8 @@ class MuviViewModelTest {
             }
 
         verify(useCase, atLeastOnce()).getHomeBanner()
-        verify(observer, atLeastOnce()).onChanged(HomeViewState.ShowLoading)
-        verify(observer, atLeastOnce()).onChanged(HomeViewState.HideLoading)
-        verify(
-            observer,
-            atLeastOnce()
-        ).onChanged(HomeViewState.GetHomeBannerData(getHomeBannerData()))
-
-        verifyNoMoreInteractions(useCase, observer)
-        clearInvocations(useCase, observer)
+        verifyNoMoreInteractions(useCase, bannerObserver)
+        clearInvocations(useCase, bannerObserver)
     }
 
     @After

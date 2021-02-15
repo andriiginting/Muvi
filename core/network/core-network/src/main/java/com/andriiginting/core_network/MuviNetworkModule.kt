@@ -102,8 +102,8 @@ class MuviNetworkModule(private val url: String) {
 
     private fun addCertificate(): CertificatePinner {
         return CertificatePinner.Builder()
-            .add(BuildConfig.HOST_BASE_URL, "+vqZVAzTqUP8BGkfl88yU7SQ3C8J2uNEa55B7RZjEg0=")
-            .add(BuildConfig.IMAGE_BASE_URL, "dkkdrQXG/soxr05PnqVNAas2Cl7nDyOp2iRkEHQ+wk0=")
+            .add(BuildConfig.HOST_BASE_URL, "sha256/+vqZVAzTqUP8BGkfl88yU7SQ3C8J2uNEa55B7RZjEg0=")
+            .add(BuildConfig.IMAGE_BASE_URL, "sha256/dkkdrQXG/soxr05PnqVNAas2Cl7nDyOp2iRkEHQ+wk0=")
             .build()
     }
 
