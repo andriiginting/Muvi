@@ -47,7 +47,11 @@ jobs:
   include:
     - stage: test
       name: "unit_test"
-      script: ./gradlew clean testDebugUnitTestReport
+      script:
+        - ./gradlew clean testDebugUnitTestReport
+        - mv app/build/reports/jacoco/testDebugUnitTestReport app/build/reports/jacoco/jacocoTestDebugUnitTestReport
+        - mv app/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html app/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/jacocoTestDebugUnitTestReport.xml
+
     - stage: build
       name: "build_debug"
       script: ./gradlew clean app:assembleDebug
