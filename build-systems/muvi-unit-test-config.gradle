@@ -52,6 +52,7 @@ project.afterEvaluate {
                     '**/*_Provide*Factory*.*',
                     '**/*Extension.*',
                     '**/*View*.*',
+                    '**/*Contract*.*',
                     '**/*ViewHolder*.*',
                     '**/*Adapter*.*',
                     '**/*Activity*.*',

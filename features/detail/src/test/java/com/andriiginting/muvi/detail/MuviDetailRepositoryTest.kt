@@ -64,6 +64,24 @@ class MuviDetailRepositoryTest {
     }
 
     @Test
+    fun `when get detail movie, should return movie from service`() {
+        val id = "id"
+
+        whenever(service.getDetailMovies(id))
+            .thenReturn(Single.just(getMovieDummyResponse()))
+
+        val test = service.getDetailMovies(id).test()
+        repository.getDetailMovie(id)
+
+        test.apply {
+            assertComplete()
+            assertNoErrors()
+        }
+
+        verify(service, atLeastOnce()).getDetailMovies(id)
+    }
+
+    @Test
     fun `when check movie popular movie store in db will return success`() {
         val id = 0
         dao.insertFavoriteMovie(getFavoritesDummy())

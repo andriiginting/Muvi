@@ -42,6 +42,70 @@ class MuviHomeRepositoryTest {
         verify(service, atLeastOnce()).getPopularMovies()
     }
 
+    @Test
+    fun `when get latest movie, should return list of movie from service`() {
+        whenever(service.getLatestMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        val test = service.getLatestMovies().test()
+        repository.getLatestMovies()
+
+        test.apply {
+            assertComplete()
+            assertNoErrors()
+        }
+
+        verify(service, atLeastOnce()).getLatestMovies()
+    }
+
+    @Test
+    fun `when get now playing movie, should return list of movie from service`() {
+        whenever(service.getNowPlayingMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        val test = service.getNowPlayingMovies().test()
+        repository.getNowPlayingMovies()
+
+        test.apply {
+            assertComplete()
+            assertNoErrors()
+        }
+
+        verify(service, atLeastOnce()).getNowPlayingMovies()
+    }
+
+    @Test
+    fun `when get top rated movie, should return list of movie from service`() {
+        whenever(service.getTopRatedMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        val test = service.getTopRatedMovies().test()
+        repository.getTopRatedMovies()
+
+        test.apply {
+            assertComplete()
+            assertNoErrors()
+        }
+
+        verify(service, atLeastOnce()).getTopRatedMovies()
+    }
+
+    @Test
+    fun `when get upcoming movie, should return list of movie from service`() {
+        whenever(service.getUpcomingMovies())
+            .thenReturn(Single.just(getDummyResponse()))
+
+        val test = service.getUpcomingMovies().test()
+        repository.getUpcomingMovies()
+
+        test.apply {
+            assertComplete()
+            assertNoErrors()
+        }
+
+        verify(service, atLeastOnce()).getUpcomingMovies()
+    }
+
     @After
     fun tearDown() {
         TrampolineSchedulerRX.tearDown()
