@@ -38,8 +38,6 @@ class MuviDetailRepositoryImpl @Inject constructor(
     }
 
     override fun removeFromDatabase(movieId: String): Single<Unit> {
-        return Single.fromCallable {
-            database.theaterDAO().deleteMovie(movieId)
-        }
+        return Single.fromCallable { database.theaterDAO().deleteMovie(movieId) }
     }
 }

@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import com.andriiginting.muvi.home.R
 import com.andriiginting.navigation.SearchNavigator
 
-class HomeSearchBar @JvmOverloads constructor(
+class HomeSearchBarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
